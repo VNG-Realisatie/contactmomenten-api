@@ -11,7 +11,7 @@ from vng_api_common.models import APIMixin
 from .constants import InitiatiefNemer, ObjectTypes
 
 
-class KlantInteractie(models.Model):
+class ContactMoment(APIMixin, models.Model):
     uuid = models.UUIDField(
         unique=True, default=uuid.uuid4, help_text="Unieke resource identifier (UUID4)"
     )
@@ -45,12 +45,6 @@ class KlantInteractie(models.Model):
             "Het communicatiekanaal dat voor opvolging van de klantinteractie de voorkeur heeft van de KLANT."
         ),
     )
-
-    class Meta:
-        abstract = True
-
-
-class ContactMoment(APIMixin, KlantInteractie):
     kanaal = models.CharField(
         blank=True,
         max_length=50,
@@ -92,7 +86,11 @@ class ContactMoment(APIMixin, KlantInteractie):
         super().save(*args, **kwargs)
 
 
-class ObjectKlantInteractie(models.Model):
+class ObjectContactMoment(APIMixin, models.Model):
+    """
+    Modelleer een CONTACTMOMENT horend bij een OBJECT.
+    """
+
     uuid = models.UUIDField(
         unique=True, default=uuid.uuid4, help_text="Unieke resource identifier (UUID4)"
     )
@@ -105,16 +103,6 @@ class ObjectKlantInteractie(models.Model):
         choices=ObjectTypes.choices,
         help_text="Het type van het gerelateerde OBJECT.",
     )
-
-    class Meta:
-        abstract = True
-
-
-class ObjectContactMoment(APIMixin, ObjectKlantInteractie):
-    """
-    Modelleer een CONTACTMOMENT horend bij een OBJECT.
-    """
-
     contactmoment = models.ForeignKey(
         "datamodel.ContactMoment",
         on_delete=models.CASCADE,

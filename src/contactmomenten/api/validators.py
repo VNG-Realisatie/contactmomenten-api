@@ -1,7 +1,6 @@
 from collections import OrderedDict
 
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
 from django.utils.module_loading import import_string
 from django.utils.translation import ugettext_lazy as _
 
@@ -10,26 +9,20 @@ from vng_api_common.models import APICredential
 from vng_api_common.validators import ResourceValidator
 from zds_client import ClientError
 
-from contactmomenten.datamodel.models import ObjectKlantInteractie
+from contactmomenten.datamodel.models import ObjectContactMoment
 
 from .auth import get_auth
 from .utils import get_absolute_url
 
 
-class ObjectKlantInteractieDestroyValidator:
+class ObjectContactMomentDestroyValidator:
     message = _(
         "The canonical remote relation still exists, this relation cannot be deleted."
     )
     code = "remote-relation-exists"
-    resource_name = None
+    resource_name = "contactmoment"
 
-    def __init__(self):
-        if not self.resource_name:
-            raise ImproperlyConfigured(
-                "Cannot use ObjectKlantInteractieDestroyValidator by itself. Use one of the concrete implementations."
-            )
-
-    def __call__(self, objectklantinteractie: ObjectKlantInteractie):
+    def __call__(self, objectklantinteractie: ObjectContactMoment):
         object_url = objectklantinteractie.object
         klantinteractie_uuid = getattr(objectklantinteractie, self.resource_name).uuid
         klantinteractie_url = get_absolute_url(
@@ -59,24 +52,14 @@ class ObjectKlantInteractieDestroyValidator:
             raise serializers.ValidationError(self.message, code=self.code)
 
 
-class ObjectContactMomentDestroyValidator(ObjectKlantInteractieDestroyValidator):
-    resource_name = "contactmoment"
-
-
-class ObjectKlantInteractieCreateValidator:
+class ObjectContactMomentCreateValidator:
     """
-    Validate that the <OBJECTKLANTINTERACTIE> is already linked to the OBJECT in the remote component.
+    Validate that the CONTACTMOMENT is already linked to the OBJECT in the remote component.
     """
 
     message = _("The contactmoment has no relations to {object}")
     code = "inconsistent-relation"
-    resource_name = None
-
-    def __init__(self):
-        if not self.resource_name:
-            raise ImproperlyConfigured(
-                "Cannot use ObjectKlantInteractieDestroyValidator by itself. Use one of the concrete implementations."
-            )
+    resource_name = "contactmoment"
 
     def __call__(self, attrs: OrderedDict):
         object_url = attrs["object"]
@@ -123,12 +106,3 @@ class ObjectKlantInteractieCreateValidator:
             raise serializers.ValidationError(
                 self.message.format(object=object_type), code=self.code
             )
-
-
-class ObjectContactMomentCreateValidator(ObjectKlantInteractieCreateValidator):
-    """
-    Validate that the CONTACTMOMENT is already linked to the OBJECT in the remote component.
-    """
-
-    message = _("The contactmoment has no relations to {object}")
-    resource_name = "contactmoment"

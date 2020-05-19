@@ -29,11 +29,7 @@ class MedewerkerSerializer(serializers.ModelSerializer):
         )
 
 
-class KlantInteractieSerializer(serializers.HyperlinkedModelSerializer):
-    pass
-
-
-class ContactMomentSerializer(KlantInteractieSerializer):
+class ContactMomentSerializer(serializers.HyperlinkedModelSerializer):
     medewerker_identificatie = MedewerkerSerializer(required=False, allow_null=True)
 
     class Meta:

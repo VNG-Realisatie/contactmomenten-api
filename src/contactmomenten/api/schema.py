@@ -11,7 +11,6 @@ Deze API is afhankelijk van:
 
 * Autorisaties API
 * Klanten API
-* Verzoeken API *(optioneel)*
 * Zaken API *(optioneel)*
 
 **Autorisatie**
