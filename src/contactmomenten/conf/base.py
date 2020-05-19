@@ -225,7 +225,11 @@ LOGGING = {
         },
     },
     "loggers": {
-        "contactmomenten": {"handlers": ["project"], "level": "INFO", "propagate": True},
+        "contactmomenten": {
+            "handlers": ["project"],
+            "level": "INFO",
+            "propagate": True,
+        },
         "django.request": {"handlers": ["django"], "level": "ERROR", "propagate": True},
         "django.template": {
             "handlers": ["console"],

@@ -31,7 +31,11 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", "testserver.com"]
 
 LOGGING["loggers"].update(
     {
-        "contactmomenten": {"handlers": ["console"], "level": "DEBUG", "propagate": True},
+        "contactmomenten": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
         "django": {"handlers": ["console"], "level": "DEBUG", "propagate": True},
         "django.db.backends": {
             "handlers": ["django"],
