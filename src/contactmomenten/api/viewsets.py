@@ -17,10 +17,10 @@ from .audits import AUDIT_CONTACTMOMENTEN
 from .filters import ObjectContactMomentFilter
 from .kanalen import KANAAL_CONTACTMOMENTEN
 from .scopes import (
-    SCOPE_KLANTEN_AANMAKEN,
-    SCOPE_KLANTEN_ALLES_LEZEN,
-    SCOPE_KLANTEN_ALLES_VERWIJDEREN,
-    SCOPE_KLANTEN_BIJWERKEN,
+    SCOPE_CONTACTMOMENTEN_AANMAKEN,
+    SCOPE_CONTACTMOMENTEN_ALLES_LEZEN,
+    SCOPE_CONTACTMOMENTEN_ALLES_VERWIJDEREN,
+    SCOPE_CONTACTMOMENTEN_BIJWERKEN,
 )
 from .serializers import ContactMomentSerializer, ObjectContactMomentSerializer
 from .validators import ObjectContactMomentDestroyValidator
@@ -70,12 +70,12 @@ class ContactMomentViewSet(
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
     required_scopes = {
-        "list": SCOPE_KLANTEN_ALLES_LEZEN,
-        "retrieve": SCOPE_KLANTEN_ALLES_LEZEN,
-        "create": SCOPE_KLANTEN_AANMAKEN,
-        "update": SCOPE_KLANTEN_BIJWERKEN,
-        "partial_update": SCOPE_KLANTEN_BIJWERKEN,
-        "destroy": SCOPE_KLANTEN_ALLES_VERWIJDEREN,
+        "list": SCOPE_CONTACTMOMENTEN_ALLES_LEZEN,
+        "retrieve": SCOPE_CONTACTMOMENTEN_ALLES_LEZEN,
+        "create": SCOPE_CONTACTMOMENTEN_AANMAKEN,
+        "update": SCOPE_CONTACTMOMENTEN_BIJWERKEN,
+        "partial_update": SCOPE_CONTACTMOMENTEN_BIJWERKEN,
+        "destroy": SCOPE_CONTACTMOMENTEN_ALLES_VERWIJDEREN,
     }
     notifications_kanaal = KANAAL_CONTACTMOMENTEN
     audit = AUDIT_CONTACTMOMENTEN
@@ -130,10 +130,10 @@ class ObjectContactMomentViewSet(
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
     required_scopes = {
-        "list": SCOPE_KLANTEN_ALLES_LEZEN,
-        "retrieve": SCOPE_KLANTEN_ALLES_LEZEN,
-        "create": SCOPE_KLANTEN_AANMAKEN,
-        "destroy": SCOPE_KLANTEN_ALLES_VERWIJDEREN,
+        "list": SCOPE_CONTACTMOMENTEN_ALLES_LEZEN,
+        "retrieve": SCOPE_CONTACTMOMENTEN_ALLES_LEZEN,
+        "create": SCOPE_CONTACTMOMENTEN_AANMAKEN,
+        "destroy": SCOPE_CONTACTMOMENTEN_ALLES_VERWIJDEREN,
     }
 
     def perform_destroy(self, instance):

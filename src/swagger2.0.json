@@ -176,7 +176,7 @@
                 "security": [
                     {
                         "JWT-Claims": [
-                            "klanten.lezen"
+                            "contactmomenten.lezen"
                         ]
                     }
                 ]
@@ -371,7 +371,7 @@
                 "security": [
                     {
                         "JWT-Claims": [
-                            "klanten.aanmaken"
+                            "contactmomenten.aanmaken"
                         ]
                     }
                 ]
@@ -913,7 +913,7 @@
                 "security": [
                     {
                         "JWT-Claims": [
-                            "klanten.lezen"
+                            "contactmomenten.lezen"
                         ]
                     }
                 ]
@@ -1115,7 +1115,7 @@
                 "security": [
                     {
                         "JWT-Claims": [
-                            "klanten.bijwerken"
+                            "contactmomenten.bijwerken"
                         ]
                     }
                 ]
@@ -1317,7 +1317,7 @@
                 "security": [
                     {
                         "JWT-Claims": [
-                            "klanten.bijwerken"
+                            "contactmomenten.bijwerken"
                         ]
                     }
                 ]
@@ -1494,7 +1494,7 @@
                 "security": [
                     {
                         "JWT-Claims": [
-                            "klanten.verwijderen"
+                            "contactmomenten.verwijderen"
                         ]
                     }
                 ]
@@ -1684,7 +1684,7 @@
                 "security": [
                     {
                         "JWT-Claims": [
-                            "klanten.lezen"
+                            "contactmomenten.lezen"
                         ]
                     }
                 ]
@@ -1858,7 +1858,7 @@
                 "security": [
                     {
                         "JWT-Claims": [
-                            "klanten.aanmaken"
+                            "contactmomenten.aanmaken"
                         ]
                     }
                 ]
@@ -2041,7 +2041,7 @@
                 "security": [
                     {
                         "JWT-Claims": [
-                            "klanten.lezen"
+                            "contactmomenten.lezen"
                         ]
                     }
                 ]
@@ -2196,7 +2196,7 @@
                 "security": [
                     {
                         "JWT-Claims": [
-                            "klanten.verwijderen"
+                            "contactmomenten.verwijderen"
                         ]
                     }
                 ]
