@@ -7,6 +7,7 @@ from vng_api_common.audittrails.viewsets import (
     AuditTrailViewSet,
     AuditTrailViewsetMixin,
 )
+from vng_api_common.notifications.viewsets import NotificationViewSetMixin
 from vng_api_common.permissions import AuthScopesRequired
 from vng_api_common.viewsets import CheckQueryParamsMixin
 
@@ -14,6 +15,7 @@ from contactmomenten.datamodel.models import ContactMoment, ObjectContactMoment
 
 from .audits import AUDIT_CONTACTMOMENTEN
 from .filters import ObjectContactMomentFilter
+from .kanalen import KANAAL_CONTACTMOMENTEN
 from .scopes import (
     SCOPE_KLANTEN_AANMAKEN,
     SCOPE_KLANTEN_ALLES_LEZEN,
@@ -26,7 +28,9 @@ from .validators import ObjectContactMomentDestroyValidator
 logger = logging.getLogger(__name__)
 
 
-class ContactMomentViewSet(AuditTrailViewsetMixin, viewsets.ModelViewSet):
+class ContactMomentViewSet(
+    NotificationViewSetMixin, AuditTrailViewsetMixin, viewsets.ModelViewSet
+):
     """
     Opvragen en bewerken van CONTACTMOMENTen.
 
@@ -73,6 +77,7 @@ class ContactMomentViewSet(AuditTrailViewsetMixin, viewsets.ModelViewSet):
         "partial_update": SCOPE_KLANTEN_BIJWERKEN,
         "destroy": SCOPE_KLANTEN_ALLES_VERWIJDEREN,
     }
+    notifications_kanaal = KANAAL_CONTACTMOMENTEN
     audit = AUDIT_CONTACTMOMENTEN
 
 

@@ -1,4 +1,5 @@
 import os
+import sys
 import warnings
 
 os.environ.setdefault(
@@ -87,6 +88,9 @@ warnings.filterwarnings(
 )
 
 IS_HTTPS = False
+
+if "test" in sys.argv:
+    NOTIFICATIONS_DISABLED = True
 
 # Override settings with local settings.
 try:

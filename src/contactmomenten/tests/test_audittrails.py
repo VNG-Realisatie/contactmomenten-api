@@ -92,7 +92,7 @@ class AuditTrailTests(JWTAuthMixin, APITestCase):
     def test_delete_contactmoment_cascade_audittrails(self):
         contactmoment_data = self._create_contactmoment()
 
-        # Delete the Besluit
+        # Delete the ContactMoment
         self.client.delete(contactmoment_data["url"])
 
         audittrails = AuditTrail.objects.filter(hoofd_object=contactmoment_data["url"])

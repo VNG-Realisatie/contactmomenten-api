@@ -14,6 +14,8 @@ info:
 
     * Autorisaties API
 
+    * Notificaties API
+
     * Klanten API
 
     * Zaken API *(optioneel)*
@@ -27,6 +29,34 @@ info:
     [token-tool](https://zaken-auth.vng.cloud/) gebruiken om JWT-tokens te
 
     genereren.
+
+
+    ** Notificaties
+
+
+    Deze API publiceert notificaties op het kanaal `contactmomenten`.
+
+
+    **Main resource**
+
+
+    `contactmoment`
+
+
+
+
+    **Kenmerken**
+
+
+    * `bronorganisatie`: Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie
+    die de klantinteractie heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers
+    en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef
+
+    * `kanaal`: Het communicatiekanaal waarlangs het CONTACTMOMENT gevoerd wordt
+
+
+    **Resources en acties**
+
 
 
     **Handige links**

@@ -1,8 +1,11 @@
 from django.conf import settings
 
 from drf_yasg import openapi
+from vng_api_common.notifications.utils import notification_documentation
 
-description = """Een API om contactmomenten met klanten te registreren of op
+from .kanalen import KANAAL_CONTACTMOMENTEN
+
+description = f"""Een API om contactmomenten met klanten te registreren of op
 te vragen.
 
 **Afhankelijkheden**
@@ -10,6 +13,7 @@ te vragen.
 Deze API is afhankelijk van:
 
 * Autorisaties API
+* Notificaties API
 * Klanten API
 * Zaken API *(optioneel)*
 
@@ -18,6 +22,10 @@ Deze API is afhankelijk van:
 Deze API vereist autorisatie. Je kan de
 [token-tool](https://zaken-auth.vng.cloud/) gebruiken om JWT-tokens te
 genereren.
+
+** Notificaties
+
+{notification_documentation(KANAAL_CONTACTMOMENTEN)}
 
 **Handige links**
 
