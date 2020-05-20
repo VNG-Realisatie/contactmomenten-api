@@ -3,11 +3,16 @@ import logging
 from rest_framework import mixins, viewsets
 from rest_framework.serializers import ValidationError
 from rest_framework.settings import api_settings
+from vng_api_common.audittrails.viewsets import (
+    AuditTrailViewSet,
+    AuditTrailViewsetMixin,
+)
 from vng_api_common.permissions import AuthScopesRequired
 from vng_api_common.viewsets import CheckQueryParamsMixin
 
 from contactmomenten.datamodel.models import ContactMoment, ObjectContactMoment
 
+from .audits import AUDIT_CONTACTMOMENTEN
 from .filters import ObjectContactMomentFilter
 from .scopes import (
     SCOPE_KLANTEN_AANMAKEN,
@@ -21,7 +26,7 @@ from .validators import ObjectContactMomentDestroyValidator
 logger = logging.getLogger(__name__)
 
 
-class ContactMomentViewSet(viewsets.ModelViewSet):
+class ContactMomentViewSet(AuditTrailViewsetMixin, viewsets.ModelViewSet):
     """
     Opvragen en bewerken van CONTACTMOMENTen.
 
@@ -68,6 +73,7 @@ class ContactMomentViewSet(viewsets.ModelViewSet):
         "partial_update": SCOPE_KLANTEN_BIJWERKEN,
         "destroy": SCOPE_KLANTEN_ALLES_VERWIJDEREN,
     }
+    audit = AUDIT_CONTACTMOMENTEN
 
 
 class ObjectContactMomentViewSet(
@@ -137,3 +143,21 @@ class ObjectContactMomentViewSet(
             )
         else:
             super().perform_destroy(instance)
+
+
+class ContactMomentAuditTrailViewSet(AuditTrailViewSet):
+    """
+    Opvragen van de audit trail regels.
+
+    list:
+    Alle audit trail regels behorend bij de CONTACTMOMENT.
+
+    Alle audit trail regels behorend bij de CONTACTMOMENT.
+
+    retrieve:
+    Een specifieke audit trail regel opvragen.
+
+    Een specifieke audit trail regel opvragen.
+    """
+
+    main_resource_lookup_field = "contactmoment_uuid"
