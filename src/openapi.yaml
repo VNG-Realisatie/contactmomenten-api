@@ -20,6 +20,10 @@ info:
 
     * Zaken API *(optioneel)*
 
+    * Verzoeken API *(optioneel)*
+
+    * Documenten API *(optioneel)*
+
 
     **Autorisatie**
 
@@ -73,7 +77,7 @@ info:
   license:
     name: EUPL 1.2
     url: https://opensource.org/licenses/EUPL-1.2
-  version: 1.0.0-rc1
+  version: 1.0.0-beta
 security:
 - JWT-Claims: []
 paths:
@@ -1970,7 +1974,8 @@ components:
           minLength: 1
         klant:
           title: Klant
-          description: URL-referentie naar een KLANT (in Klanten API)
+          description: URL-referentie naar een KLANT (in Klanten API) indien de klantinteractie
+            niet anoniem is.
           type: string
           format: uri
           maxLength: 1000

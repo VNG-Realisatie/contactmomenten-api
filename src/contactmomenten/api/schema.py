@@ -16,6 +16,8 @@ Deze API is afhankelijk van:
 * Notificaties API
 * Klanten API
 * Zaken API *(optioneel)*
+* Verzoeken API *(optioneel)*
+* Documenten API *(optioneel)*
 
 **Autorisatie**
 

@@ -25,7 +25,9 @@ class ContactMoment(APIMixin, models.Model):
     klant = models.URLField(
         max_length=1000,
         blank=True,
-        help_text=_("URL-referentie naar een KLANT (in Klanten API) indien de klantinteractie niet anoniem is."),
+        help_text=_(
+            "URL-referentie naar een KLANT (in Klanten API) indien de klantinteractie niet anoniem is."
+        ),
     )
     interactiedatum = models.DateTimeField(
         default=timezone.now,
