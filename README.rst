@@ -1,6 +1,6 @@
-========================
-Klantcontactcomponent
-========================
+===================
+Contactmomenten API
+===================
 
 :Version: 0.1.0
 :Source: https://github.com/VNG-Realisatie/contactmomenten-api
@@ -9,18 +9,14 @@ Klantcontactcomponent
 
 |black|
 
-Referentieimplementatie van de contactmomenten.
+Referentieimplementatie van de Contactmomenten API.
 
 Inleiding
 =========
 
-Binnen het Nederlandse gemeentelandschap wordt zaakgericht werken nagestreefd.
-Om dit mogelijk te maken is er gegevensuitwisseling nodig. De kerngegevens van
-zaken moeten ergens geregistreerd worden en opvraagbaar zijn.
-
-Deze referentieimplementatie toont aan dat de API specificatie voor de
-contactmomenten implementeerbaar is, en vormt een
-voorbeeld voor andere implementaties indien ergens twijfel bestaat.
+Deze referentieimplementatie toont aan dat de API specificatie voor
+Contactmomenten implementeerbaar is, en vormt een voorbeeld voor andere 
+implementaties indien ergens twijfel bestaat.
 
 Documentatie
 ============
@@ -35,7 +31,7 @@ raden we aan om net wel van Docker gebruik te maken.
 Licentie
 ========
 
-Copyright © VNG Realisatie 2019
+Copyright © VNG Realisatie 2020
 
 Licensed under the EUPL_
 
