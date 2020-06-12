@@ -221,3 +221,22 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(ContactMoment.objects.count(), 0)
+
+
+class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
+    heeft_alle_autorisaties = True
+    list_url = reverse(ContactMoment)
+
+    def test_filter_voorkeurstaal(self):
+        ContactMomentFactory.create(voorkeurstaal="nld")
+        ContactMomentFactory.create(voorkeurstaal="eng")
+
+        response = self.client.get(
+            self.list_url, {"voorkeurstaal": "nld"}, HTTP_HOST="testserver.com",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(
+            response.data[0]["voorkeurstaal"], "nld",
+        )
