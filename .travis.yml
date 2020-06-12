@@ -21,7 +21,7 @@ env:
   - DEPLOYMENT=cmc
 
 install:
-  - pip install -r requirements/ci.txt
+  - pip install -r requirements/jenkins.txt
   - pip install codecov
   - npm ci
   - npm run build
