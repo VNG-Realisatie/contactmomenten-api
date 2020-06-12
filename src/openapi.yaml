@@ -86,6 +86,21 @@ paths:
       operationId: contactmoment_list
       summary: Alle CONTACTMOMENTen opvragen.
       description: Alle CONTACTMOMENTen opvragen.
+      parameters:
+      - name: vorigContactmoment
+        in: query
+        description: URL-referentie naar het vorige CONTACTMOMENT.
+        required: false
+        schema:
+          type: string
+          format: uri
+      - name: volgendContactmoment
+        in: query
+        description: URL-referentie naar het volgende CONTACTMOMENT.
+        required: false
+        schema:
+          type: string
+          format: uri
       responses:
         '200':
           description: OK
@@ -101,6 +116,18 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ContactMoment'
+        '400':
+          description: Bad request
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ValidatieFout'
         '401':
           description: Unauthorized
           headers:
@@ -1964,6 +1991,19 @@ components:
           readOnly: true
           maxLength: 1000
           minLength: 1
+        vorigContactmoment:
+          title: Vorig contactmoment
+          description: URL-referentie naar het vorige CONTACTMOMENT.
+          type: string
+          format: uri
+          nullable: true
+        volgendContactmoment:
+          title: Volgend contactmoment
+          description: URL-referentie naar het volgende CONTACTMOMENT.
+          type: string
+          format: uri
+          readOnly: true
+          nullable: true
         bronorganisatie:
           title: Bronorganisatie
           description: Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie

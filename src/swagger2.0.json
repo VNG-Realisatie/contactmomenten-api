@@ -38,7 +38,24 @@
                 "operationId": "contactmoment_list",
                 "summary": "Alle CONTACTMOMENTen opvragen.",
                 "description": "Alle CONTACTMOMENTen opvragen.",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "vorigContactmoment",
+                        "in": "query",
+                        "description": "URL-referentie naar het vorige CONTACTMOMENT.",
+                        "required": false,
+                        "type": "string",
+                        "format": "uri"
+                    },
+                    {
+                        "name": "volgendContactmoment",
+                        "in": "query",
+                        "description": "URL-referentie naar het volgende CONTACTMOMENT.",
+                        "required": false,
+                        "type": "string",
+                        "format": "uri"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -47,6 +64,20 @@
                             "items": {
                                 "$ref": "#/definitions/ContactMoment"
                             }
+                        },
+                        "headers": {
+                            "API-version": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "description": "Geeft een specifieke API-versie aan in de context van een specifieke aanroep. Voorbeeld: 1.2.1."
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/ValidatieFout"
                         },
                         "headers": {
                             "API-version": {
@@ -2259,6 +2290,21 @@
                     "readOnly": true,
                     "maxLength": 1000,
                     "minLength": 1
+                },
+                "vorigContactmoment": {
+                    "title": "Vorig contactmoment",
+                    "description": "URL-referentie naar het vorige CONTACTMOMENT.",
+                    "type": "string",
+                    "format": "uri",
+                    "x-nullable": true
+                },
+                "volgendContactmoment": {
+                    "title": "Volgend contactmoment",
+                    "description": "URL-referentie naar het volgende CONTACTMOMENT.",
+                    "type": "string",
+                    "format": "uri",
+                    "readOnly": true,
+                    "x-nullable": true
                 },
                 "bronorganisatie": {
                     "title": "Bronorganisatie",
