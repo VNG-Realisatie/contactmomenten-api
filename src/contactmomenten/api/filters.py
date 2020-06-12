@@ -1,5 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 
+from django_filters import filters
 from vng_api_common.filters import URLModelChoiceFilter
 from vng_api_common.filtersets import FilterSet
 
@@ -13,9 +14,38 @@ class ObjectContactMomentFilter(FilterSet):
 
 
 class ContactMomentFilter(FilterSet):
+
+    ordering = filters.OrderingFilter(
+        fields=(
+            "url",
+            "bronorganisatie",
+            "klant",
+            "registratiedatum",
+            "kanaal",
+            "voorkeurskanaal",
+            "tekst",
+            "onderwerp_links",
+            "initiatiefnemer",
+            "medewerker",
+            "medewerker_identificatie",
+        ),
+        help_text=_("Het veld waarop de resultaten geordend worden.")
+    )
+
     class Meta:
         model = ContactMoment
-        fields = ("voorkeurstaal", "vorig_contactmoment", "volgend_contactmoment")
+        fields = {
+            "voorkeurstaal": ["exact"],
+            "vorig_contactmoment": ["exact"],
+            "volgend_contactmoment": ["exact"],
+            "bronorganisatie": ["exact"],
+            "registratiedatum": ["exact", "gt", "gte", "lt", "lte"],
+            "kanaal": ["exact"],
+            "voorkeurskanaal": ["exact"],
+            "initiatiefnemer": ["exact"],
+            "medewerker": ["exact"],
+            "ordering": ["exact"],
+        }
 
     @classmethod
     def filter_for_field(cls, f, name, lookup_expr):
