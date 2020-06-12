@@ -179,6 +179,43 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
 
         self.assertEqual(error["code"], "invalid-medewerker")
 
+    def test_create_contactmoment_vorig_contactmoment(self):
+        vorig_cmc = ContactMomentFactory.create()
+        list_url = reverse(ContactMoment)
+        data = {
+            "bronorganisatie": "423182687",
+            "kanaal": "telephone",
+            "tekst": "some text",
+            "onderwerpLinks": [],
+            "initiatiefnemer": InitiatiefNemer.gemeente,
+            "medewerker": "http://example.com/medewerker/1",
+            "vorigContactmoment": reverse(vorig_cmc),
+        }
+
+        response = self.client.post(list_url, data)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        contactmoment = ContactMoment.objects.last()
+
+        self.assertEqual(contactmoment.kanaal, "telephone")
+        self.assertEqual(contactmoment.tekst, "some text")
+        self.assertEqual(contactmoment.initiatiefnemer, InitiatiefNemer.gemeente)
+        self.assertEqual(contactmoment.medewerker, "http://example.com/medewerker/1")
+        self.assertEqual(contactmoment.vorig_contactmoment, vorig_cmc)
+
+        # Check if volgendContactmoment is set correctly
+
+        response = self.client.get(reverse(vorig_cmc))
+
+        self.assertEqual(
+            response.data["volgend_contactmoment"],
+            f"http://testserver{reverse(contactmoment)}",
+        )
+
+        vorig_cmc.refresh_from_db()
+        self.assertEqual(vorig_cmc.volgend_contactmoment, contactmoment)
+
     def test_update_contactmoment(self):
         contactmoment = ContactMomentFactory.create()
         detail_url = reverse(contactmoment)
@@ -216,6 +253,26 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
         self.assertEqual(medewerker.identificatie, "12345")
         self.assertEqual(medewerker.achternaam, "Buurman")
         self.assertEqual(medewerker.voorletters, "B B")
+
+    def test_update_contactmoment_override_vorig_contactmoment(self):
+        vorig_cmc = ContactMomentFactory.create()
+        contactmoment = ContactMomentFactory.create(vorig_contactmoment=vorig_cmc)
+
+        new_vorig_cmc = ContactMomentFactory.create()
+
+        detail_url = reverse(contactmoment)
+        data = {"vorigContactmoment": reverse(new_vorig_cmc)}
+
+        response = self.client.patch(detail_url, data)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        vorig_cmc.refresh_from_db()
+        contactmoment.refresh_from_db()
+        new_vorig_cmc.refresh_from_db()
+
+        self.assertEqual(contactmoment.vorig_contactmoment, new_vorig_cmc)
+        self.assertEqual(new_vorig_cmc.volgend_contactmoment, contactmoment)
 
     def test_destroy_contactmoment(self):
         contactmoment = ContactMomentFactory.create()
