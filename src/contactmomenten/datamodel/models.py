@@ -86,6 +86,14 @@ class ContactMoment(APIMixin, models.Model):
         blank=True,
         default=list,
     )
+    vorig_contactmoment = models.OneToOneField(
+        "self",
+        null=True,
+        blank=True,
+        on_delete=models.DO_NOTHING,
+        related_name="volgend_contactmoment",
+        help_text=_("URL-referentie naar het vorige CONTACTMOMENT."),
+    )
 
     class Meta:
         verbose_name = "contactmoment"
