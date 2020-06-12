@@ -32,7 +32,7 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
 
     def test_read_contactmoment(self):
         contactmoment = ContactMomentFactory.create(
-            interactiedatum=make_aware(datetime(2019, 1, 1)),
+            registratiedatum=make_aware(datetime(2019, 1, 1)),
             initiatiefnemer=InitiatiefNemer.gemeente,
         )
         detail_url = reverse(contactmoment)
@@ -51,7 +51,7 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
                 "volgendContactmoment": None,
                 "bronorganisatie": contactmoment.bronorganisatie,
                 "klant": contactmoment.klant,
-                "interactiedatum": "2019-01-01T00:00:00Z",
+                "registratiedatum": "2019-01-01T00:00:00Z",
                 "kanaal": contactmoment.kanaal,
                 "voorkeurskanaal": contactmoment.voorkeurskanaal,
                 "voorkeurstaal": contactmoment.voorkeurstaal,
@@ -65,7 +65,7 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
 
     def test_read_contactmoment_with_medewerker(self):
         contactmoment = ContactMomentFactory.create(
-            interactiedatum=make_aware(datetime(2019, 1, 1)),
+            registratiedatum=make_aware(datetime(2019, 1, 1)),
             initiatiefnemer=InitiatiefNemer.gemeente,
             medewerker="",
             voorkeurstaal="nld",
@@ -87,7 +87,7 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
                 "volgendContactmoment": None,
                 "bronorganisatie": contactmoment.bronorganisatie,
                 "klant": contactmoment.klant,
-                "interactiedatum": "2019-01-01T00:00:00Z",
+                "registratiedatum": "2019-01-01T00:00:00Z",
                 "kanaal": contactmoment.kanaal,
                 "voorkeurskanaal": contactmoment.voorkeurskanaal,
                 "voorkeurstaal": contactmoment.voorkeurstaal,
