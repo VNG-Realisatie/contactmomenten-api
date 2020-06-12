@@ -295,11 +295,24 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
         response = self.client.get(
             self.list_url, {"voorkeurstaal": "nld"}, HTTP_HOST="testserver.com",
         )
-
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
         self.assertEqual(
             response.data[0]["voorkeurstaal"], "nld",
+        )
+
+    def test_filter_bronorganisatie(self):
+        ContactMomentFactory.create(bronorganisatie="000000000")
+        ContactMomentFactory.create(bronorganisatie="000099998")
+
+        response = self.client.get(
+            self.list_url, {"bronorganisatie": "000000000"}, HTTP_HOST="testserver.com",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(
+            response.data[0]["bronorganisatie"], "000000000",
         )
 
     def test_list_contactmomenten_filter_vorig_contactmoment(self):
@@ -334,3 +347,159 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
 
         data = response.json()
         self.assertEqual(len(data), 1)
+            response.data[0]["bronorganisatie"], "000000000",
+        )
+
+    def test_filter_registratiedatum(self):
+        ContactMomentFactory.create(registratiedatum="2020-01-01T12:00:00Z")
+        ContactMomentFactory.create(registratiedatum="2019-03-02T22:00:00Z")
+
+        response = self.client.get(
+            self.list_url,
+            {"registratiedatum": "2020-01-01T12:00:00Z"},
+            HTTP_HOST="testserver.com",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(
+            response.data[0]["registratiedatum"], "2020-01-01T12:00:00Z",
+        )
+
+    def test_filter_registratiedatum_gt(self):
+        ContactMomentFactory.create(registratiedatum="2020-01-01T12:00:00Z")
+        ContactMomentFactory.create(registratiedatum="2019-03-02T22:00:00Z")
+
+        response = self.client.get(
+            self.list_url,
+            {"registratiedatum__gt": "2019-03-02T22:00:00Z"},
+            HTTP_HOST="testserver.com",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(
+            response.data[0]["registratiedatum"], "2020-01-01T12:00:00Z",
+        )
+
+    def test_filter_registratiedatum_gte(self):
+        ContactMomentFactory.create(registratiedatum="2020-01-01T12:00:00Z")
+        ContactMomentFactory.create(registratiedatum="2019-03-02T22:00:00Z")
+
+        response = self.client.get(
+            self.list_url,
+            {"registratiedatum__gte": "2020-01-01T12:00:00Z"},
+            HTTP_HOST="testserver.com",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(
+            response.data[0]["registratiedatum"], "2020-01-01T12:00:00Z",
+        )
+
+    def test_filter_registratiedatum_lt(self):
+        ContactMomentFactory.create(registratiedatum="2020-01-01T12:00:00Z")
+        ContactMomentFactory.create(registratiedatum="2019-03-02T22:00:00Z")
+
+        response = self.client.get(
+            self.list_url,
+            {"registratiedatum__lt": "2020-01-01T12:00:00Z"},
+            HTTP_HOST="testserver.com",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(
+            response.data[0]["registratiedatum"], "2019-03-02T22:00:00Z",
+        )
+
+    def test_filter_registratiedatum_lte(self):
+        ContactMomentFactory.create(registratiedatum="2020-01-01T12:00:00Z")
+        ContactMomentFactory.create(registratiedatum="2019-03-02T22:00:00Z")
+
+        response = self.client.get(
+            self.list_url,
+            {"registratiedatum__lte": "2019-03-02T22:00:00Z"},
+            HTTP_HOST="testserver.com",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(
+            response.data[0]["registratiedatum"], "2019-03-02T22:00:00Z",
+        )
+
+    def test_filter_kanaal(self):
+        ContactMomentFactory.create(kanaal="kanaal1")
+        ContactMomentFactory.create(kanaal="kanaal2")
+
+        response = self.client.get(
+            self.list_url, {"kanaal": "kanaal1"}, HTTP_HOST="testserver.com",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(
+            response.data[0]["kanaal"], "kanaal1",
+        )
+
+    def test_filter_voorkeurskanaal(self):
+        ContactMomentFactory.create(voorkeurskanaal="kanaal1")
+        ContactMomentFactory.create(voorkeurskanaal="kanaal2")
+
+        response = self.client.get(
+            self.list_url, {"voorkeurskanaal": "kanaal1"}, HTTP_HOST="testserver.com",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(
+            response.data[0]["voorkeurskanaal"], "kanaal1",
+        )
+
+    def test_filter_initiatiefnemer(self):
+        ContactMomentFactory.create(initiatiefnemer=InitiatiefNemer.gemeente)
+        ContactMomentFactory.create(initiatiefnemer=InitiatiefNemer.klant)
+
+        response = self.client.get(
+            self.list_url,
+            {"initiatiefnemer": InitiatiefNemer.gemeente},
+            HTTP_HOST="testserver.com",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(
+            response.data[0]["initiatiefnemer"], InitiatiefNemer.gemeente,
+        )
+
+    def test_filter_medewerker(self):
+        ContactMomentFactory.create(medewerker="http://testserver.com/medewerker/1")
+        ContactMomentFactory.create(medewerker="http://testserver.com/medewerker/2")
+
+        response = self.client.get(
+            self.list_url,
+            {"medewerker": "http://testserver.com/medewerker/1"},
+            HTTP_HOST="testserver.com",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(
+            response.data[0]["medewerker"], "http://testserver.com/medewerker/1",
+        )
+
+    def test_filter_ordering(self):
+        ContactMomentFactory.create(kanaal="bcd")
+        ContactMomentFactory.create(kanaal="abc")
+
+        response = self.client.get(
+            self.list_url, {"ordering": "kanaal"}, HTTP_HOST="testserver.com",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 2)
+        self.assertEqual(
+            response.data[0]["kanaal"], "abc",
+        )
