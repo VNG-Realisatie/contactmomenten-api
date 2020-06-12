@@ -301,3 +301,36 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
         self.assertEqual(
             response.data[0]["voorkeurstaal"], "nld",
         )
+
+    def test_list_contactmomenten_filter_vorig_contactmoment(self):
+        list_url = reverse(ContactMoment)
+        cmc1, cmc2, cmc3 = ContactMomentFactory.create_batch(3)
+        cmc3.vorig_contactmoment = cmc2
+        cmc3.save()
+
+        response = self.client.get(
+            list_url,
+            {"vorigContactmoment": f"http://testserver.com{reverse(cmc2)}"},
+            HTTP_HOST="testserver.com",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        data = response.json()
+        self.assertEqual(len(data), 1)
+
+    def test_list_contactmomenten_filter_volgend_contactmoment(self):
+        list_url = reverse(ContactMoment)
+        cmc1, cmc2, cmc3 = ContactMomentFactory.create_batch(3)
+        cmc3.vorig_contactmoment = cmc2
+        cmc3.save()
+
+        response = self.client.get(
+            list_url,
+            {"volgendContactmoment": f"http://testserver.com{reverse(cmc3)}"},
+            HTTP_HOST="testserver.com",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        data = response.json()
+        self.assertEqual(len(data), 1)
