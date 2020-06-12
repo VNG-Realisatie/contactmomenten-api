@@ -26,7 +26,7 @@ Objecttype op [GEMMA Online](https://www.gemmaonline.nl/index.php/Rgbz_1.0/doc/o
 | volgendContactmoment | URL-referentie naar het volgende CONTACTMOMENT. | string | nee | ~~C~~​R​~~U~~​~~D~~ |
 | bronorganisatie | Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die de klantinteractie heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef | string | ja | C​R​U​D |
 | klant | URL-referentie naar een KLANT (in Klanten API) indien de klantinteractie niet anoniem is. | string | nee | C​R​U​D |
-| interactiedatum | De datum en het tijdstip waarop de klantinteractie heeft plaatsgevonden. | string | nee | C​R​U​D |
+| registratiedatum | De datum en het tijdstip waarop het CONTACTMOMENT is geregistreerd. | string | nee | C​R​U​D |
 | kanaal | Het communicatiekanaal waarlangs het CONTACTMOMENT gevoerd wordt | string | nee | C​R​U​D |
 | voorkeurskanaal | Het communicatiekanaal dat voor opvolging van de klantinteractie de voorkeur heeft van de KLANT. | string | nee | C​R​U​D |
 | voorkeurstaal | Een ISO 639-2/B taalcode waarin de inhoud van het INFORMATIEOBJECT is vastgelegd. Voorbeeld: `nld`. Zie: https://www.iso.org/standard/4767.html | string | nee | C​R​U​D |
