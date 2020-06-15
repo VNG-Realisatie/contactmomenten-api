@@ -9,7 +9,7 @@ services:
     #   - POSTGRES_PASSWORD=${PG_PASSWORD:contactmomenten}
   web:
     build: .
-    image: vngr/klantinteracties-api
+    image: vngr/contactmomenten-api
     environment:
       - DJANGO_SETTINGS_MODULE=contactmomenten.conf.docker
       - SECRET_KEY=${SECRET_KEY}
