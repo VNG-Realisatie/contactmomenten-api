@@ -52,6 +52,7 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
                 "interactiedatum": "2019-01-01T00:00:00Z",
                 "kanaal": contactmoment.kanaal,
                 "voorkeurskanaal": contactmoment.voorkeurskanaal,
+                "voorkeurstaal": contactmoment.voorkeurstaal,
                 "tekst": contactmoment.tekst,
                 "onderwerpLinks": [],
                 "initiatiefnemer": InitiatiefNemer.gemeente,
@@ -65,6 +66,7 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
             interactiedatum=make_aware(datetime(2019, 1, 1)),
             initiatiefnemer=InitiatiefNemer.gemeente,
             medewerker="",
+            voorkeurstaal="nld",
         )
         medewerker = MedewerkerFactory.create(contactmoment=contactmoment)
         detail_url = reverse(contactmoment)
@@ -84,6 +86,7 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
                 "interactiedatum": "2019-01-01T00:00:00Z",
                 "kanaal": contactmoment.kanaal,
                 "voorkeurskanaal": contactmoment.voorkeurskanaal,
+                "voorkeurstaal": contactmoment.voorkeurstaal,
                 "tekst": contactmoment.tekst,
                 "onderwerpLinks": [],
                 "initiatiefnemer": InitiatiefNemer.gemeente,
@@ -218,3 +221,22 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(ContactMoment.objects.count(), 0)
+
+
+class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
+    heeft_alle_autorisaties = True
+    list_url = reverse(ContactMoment)
+
+    def test_filter_voorkeurstaal(self):
+        ContactMomentFactory.create(voorkeurstaal="nld")
+        ContactMomentFactory.create(voorkeurstaal="eng")
+
+        response = self.client.get(
+            self.list_url, {"voorkeurstaal": "nld"}, HTTP_HOST="testserver.com",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(
+            response.data[0]["voorkeurstaal"], "nld",
+        )

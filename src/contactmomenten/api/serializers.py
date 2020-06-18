@@ -41,6 +41,7 @@ class ContactMomentSerializer(serializers.HyperlinkedModelSerializer):
             "interactiedatum",
             "kanaal",
             "voorkeurskanaal",
+            "voorkeurstaal",
             "tekst",
             "onderwerp_links",
             "initiatiefnemer",

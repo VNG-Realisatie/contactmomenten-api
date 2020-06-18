@@ -48,6 +48,15 @@ class ContactMoment(APIMixin, models.Model):
             "Het communicatiekanaal dat voor opvolging van de klantinteractie de voorkeur heeft van de KLANT."
         ),
     )
+    voorkeurstaal = models.CharField(
+        max_length=3,
+        blank=True,
+        help_text=_(
+            "Een ISO 639-2/B taalcode waarin de inhoud van het "
+            "INFORMATIEOBJECT is vastgelegd. Voorbeeld: `nld`. Zie: "
+            "https://www.iso.org/standard/4767.html"
+        ),
+    )
     kanaal = models.CharField(
         blank=True,
         max_length=50,

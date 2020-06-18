@@ -14,7 +14,7 @@ from vng_api_common.viewsets import CheckQueryParamsMixin
 from contactmomenten.datamodel.models import ContactMoment, ObjectContactMoment
 
 from .audits import AUDIT_CONTACTMOMENTEN
-from .filters import ObjectContactMomentFilter
+from .filters import ContactMomentFilter, ObjectContactMomentFilter
 from .kanalen import KANAAL_CONTACTMOMENTEN
 from .scopes import (
     SCOPE_CONTACTMOMENTEN_AANMAKEN,
@@ -67,6 +67,7 @@ class ContactMomentViewSet(
 
     queryset = ContactMoment.objects.all()
     serializer_class = ContactMomentSerializer
+    filterset_class = ContactMomentFilter
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
     required_scopes = {
