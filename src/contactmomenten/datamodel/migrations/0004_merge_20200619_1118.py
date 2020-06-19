@@ -6,9 +6,8 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('datamodel', '0003_contactmoment_voorkeurstaal'),
-        ('datamodel', '0003_contactmoment_vorig_contactmoment'),
+        ("datamodel", "0003_contactmoment_voorkeurstaal"),
+        ("datamodel", "0003_contactmoment_vorig_contactmoment"),
     ]
 
-    operations = [
-    ]
+    operations = []
