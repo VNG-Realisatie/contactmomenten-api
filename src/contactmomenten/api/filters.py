@@ -29,7 +29,7 @@ class ContactMomentFilter(FilterSet):
             "medewerker",
             "medewerker_identificatie",
         ),
-        help_text=_("Het veld waarop de resultaten geordend worden.")
+        help_text=_("Het veld waarop de resultaten geordend worden."),
     )
 
     class Meta:
