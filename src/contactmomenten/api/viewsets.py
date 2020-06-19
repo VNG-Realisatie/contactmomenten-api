@@ -1,6 +1,7 @@
 import logging
 
 from rest_framework import mixins, viewsets
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.serializers import ValidationError
 from rest_framework.settings import api_settings
 from vng_api_common.audittrails.viewsets import (
@@ -29,7 +30,10 @@ logger = logging.getLogger(__name__)
 
 
 class ContactMomentViewSet(
-    NotificationViewSetMixin, AuditTrailViewsetMixin, viewsets.ModelViewSet
+    CheckQueryParamsMixin,
+    NotificationViewSetMixin,
+    AuditTrailViewsetMixin,
+    viewsets.ModelViewSet,
 ):
     """
     Opvragen en bewerken van CONTACTMOMENTen.
@@ -70,6 +74,7 @@ class ContactMomentViewSet(
     filterset_class = ContactMomentFilter
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
+    pagination_class = PageNumberPagination
     required_scopes = {
         "list": SCOPE_CONTACTMOMENTEN_ALLES_LEZEN,
         "retrieve": SCOPE_CONTACTMOMENTEN_ALLES_LEZEN,
@@ -130,6 +135,7 @@ class ObjectContactMomentViewSet(
     filterset_class = ObjectContactMomentFilter
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
+    pagination_class = PageNumberPagination
     required_scopes = {
         "list": SCOPE_CONTACTMOMENTEN_ALLES_LEZEN,
         "retrieve": SCOPE_CONTACTMOMENTEN_ALLES_LEZEN,
