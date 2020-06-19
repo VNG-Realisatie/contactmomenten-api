@@ -331,6 +331,10 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
 
         data = response.json()
         self.assertEqual(len(data), 1)
+        self.assertEqual(
+            response.data[0]["vorig_contactmoment"],
+            f"http://testserver.com{reverse(cmc2)}",
+        )
 
     def test_list_contactmomenten_filter_volgend_contactmoment(self):
         list_url = reverse(ContactMoment)
@@ -347,7 +351,9 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
 
         data = response.json()
         self.assertEqual(len(data), 1)
-            response.data[0]["bronorganisatie"], "000000000",
+        self.assertEqual(
+            response.data[0]["volgend_contactmoment"],
+            f"http://testserver.com{reverse(cmc3)}",
         )
 
     def test_filter_registratiedatum(self):
