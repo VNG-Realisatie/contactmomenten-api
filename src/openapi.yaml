@@ -104,6 +104,10 @@ paths:
       - name: volgendContactmoment
         in: query
         description: URL-referentie naar het volgende CONTACTMOMENT.
+        required: false
+        schema:
+          type: string
+          format: uri
       - name: bronorganisatie
         in: query
         description: Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie
@@ -177,6 +181,29 @@ paths:
         required: false
         schema:
           type: string
+          enum:
+          - url
+          - -url
+          - bronorganisatie
+          - -bronorganisatie
+          - klant
+          - -klant
+          - registratiedatum
+          - -registratiedatum
+          - kanaal
+          - -kanaal
+          - voorkeurskanaal
+          - -voorkeurskanaal
+          - tekst
+          - -tekst
+          - onderwerp_links
+          - -onderwerp_links
+          - initiatiefnemer
+          - -initiatiefnemer
+          - medewerker
+          - -medewerker
+          - medewerker_identificatie
+          - -medewerker_identificatie
       responses:
         '200':
           description: OK

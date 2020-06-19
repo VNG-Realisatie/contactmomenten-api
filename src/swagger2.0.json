@@ -43,9 +43,6 @@
                         "name": "voorkeurstaal",
                         "in": "query",
                         "description": "Een ISO 639-2/B taalcode waarin de inhoud van het INFORMATIEOBJECT is vastgelegd. Voorbeeld: `nld`. Zie: https://www.iso.org/standard/4767.html",
-                        "name": "bronorganisatie",
-                        "in": "query",
-                        "description": "Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die de klantinteractie heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef",
                         "required": false,
                         "type": "string"
                     },
@@ -64,6 +61,15 @@
                         "required": false,
                         "type": "string",
                         "format": "uri"
+                    },
+                    {
+                        "name": "bronorganisatie",
+                        "in": "query",
+                        "description": "Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die de klantinteractie heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
                         "name": "registratiedatum",
                         "in": "query",
                         "description": "De datum en het tijdstip waarop het CONTACTMOMENT is geregistreerd.",
@@ -136,7 +142,31 @@
                         "in": "query",
                         "description": "Het veld waarop de resultaten geordend worden.",
                         "required": false,
-                        "type": "string"
+                        "type": "string",
+                        "enum": [
+                            "url",
+                            "-url",
+                            "bronorganisatie",
+                            "-bronorganisatie",
+                            "klant",
+                            "-klant",
+                            "registratiedatum",
+                            "-registratiedatum",
+                            "kanaal",
+                            "-kanaal",
+                            "voorkeurskanaal",
+                            "-voorkeurskanaal",
+                            "tekst",
+                            "-tekst",
+                            "onderwerp_links",
+                            "-onderwerp_links",
+                            "initiatiefnemer",
+                            "-initiatiefnemer",
+                            "medewerker",
+                            "-medewerker",
+                            "medewerker_identificatie",
+                            "-medewerker_identificatie"
+                        ]
                     }
                 ],
                 "responses": {
