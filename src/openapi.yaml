@@ -87,6 +87,13 @@ paths:
       summary: Alle CONTACTMOMENTen opvragen.
       description: Alle CONTACTMOMENTen opvragen.
       parameters:
+      - name: voorkeurstaal
+        in: query
+        description: 'Een ISO 639-2/B taalcode waarin de inhoud van het INFORMATIEOBJECT
+          is vastgelegd. Voorbeeld: `nld`. Zie: https://www.iso.org/standard/4767.html'
+        required: false
+        schema:
+          type: string
       - name: vorigContactmoment
         in: query
         description: URL-referentie naar het vorige CONTACTMOMENT.
@@ -234,6 +241,14 @@ paths:
       summary: Maak een CONTACTMOMENT aan.
       description: Maak een CONTACTMOMENT aan.
       parameters:
+      - name: Content-Type
+        in: header
+        description: Content type van de verzoekinhoud.
+        required: true
+        schema:
+          type: string
+          enum:
+          - application/json
       - name: X-NLX-Request-Application-Id
         in: header
         description: Identificatie van de applicatie die het verzoek stuurt (indien
@@ -528,7 +543,7 @@ paths:
         description: "Voer een voorwaardelijk verzoek uit. Deze header moet \xE9\xE9\
           n of meerdere ETag-waardes bevatten van resources die de consumer gecached\
           \ heeft. Indien de waarde van de ETag van de huidige resource voorkomt in\
-          \ deze set, dan antwoord de provider met een lege HTTP 304 request. Zie\
+          \ deze set, dan antwoordt de provider met een lege HTTP 304 request. Zie\
           \ [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match)\
           \ voor meer informatie."
         required: false
@@ -699,7 +714,7 @@ paths:
         description: "Voer een voorwaardelijk verzoek uit. Deze header moet \xE9\xE9\
           n of meerdere ETag-waardes bevatten van resources die de consumer gecached\
           \ heeft. Indien de waarde van de ETag van de huidige resource voorkomt in\
-          \ deze set, dan antwoord de provider met een lege HTTP 304 request. Zie\
+          \ deze set, dan antwoordt de provider met een lege HTTP 304 request. Zie\
           \ [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match)\
           \ voor meer informatie."
         required: false
@@ -849,6 +864,14 @@ paths:
       summary: Werk een CONTACTMOMENT in zijn geheel bij.
       description: Werk een CONTACTMOMENT in zijn geheel bij.
       parameters:
+      - name: Content-Type
+        in: header
+        description: Content type van de verzoekinhoud.
+        required: true
+        schema:
+          type: string
+          enum:
+          - application/json
       - name: X-NLX-Request-Application-Id
         in: header
         description: Identificatie van de applicatie die het verzoek stuurt (indien
@@ -1014,6 +1037,14 @@ paths:
       summary: Werk een CONTACTMOMENT deels bij.
       description: Werk een CONTACTMOMENT deels bij.
       parameters:
+      - name: Content-Type
+        in: header
+        description: Content type van de verzoekinhoud.
+        required: true
+        schema:
+          type: string
+          enum:
+          - application/json
       - name: X-NLX-Request-Application-Id
         in: header
         description: Identificatie van de applicatie die het verzoek stuurt (indien
@@ -1489,6 +1520,15 @@ paths:
         Andere API''s, zoals de Zaken API, gebruiken dit
 
         endpoint bij het synchroniseren van relaties.'
+      parameters:
+      - name: Content-Type
+        in: header
+        description: Content type van de verzoekinhoud.
+        required: true
+        schema:
+          type: string
+          enum:
+          - application/json
       requestBody:
         content:
           application/json:
@@ -1638,7 +1678,7 @@ paths:
         description: "Voer een voorwaardelijk verzoek uit. Deze header moet \xE9\xE9\
           n of meerdere ETag-waardes bevatten van resources die de consumer gecached\
           \ heeft. Indien de waarde van de ETag van de huidige resource voorkomt in\
-          \ deze set, dan antwoord de provider met een lege HTTP 304 request. Zie\
+          \ deze set, dan antwoordt de provider met een lege HTTP 304 request. Zie\
           \ [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match)\
           \ voor meer informatie."
         required: false

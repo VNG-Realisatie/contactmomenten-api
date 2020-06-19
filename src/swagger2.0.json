@@ -40,6 +40,13 @@
                 "description": "Alle CONTACTMOMENTen opvragen.",
                 "parameters": [
                     {
+                        "name": "voorkeurstaal",
+                        "in": "query",
+                        "description": "Een ISO 639-2/B taalcode waarin de inhoud van het INFORMATIEOBJECT is vastgelegd. Voorbeeld: `nld`. Zie: https://www.iso.org/standard/4767.html",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
                         "name": "vorigContactmoment",
                         "in": "query",
                         "description": "URL-referentie naar het vorige CONTACTMOMENT.",
@@ -217,6 +224,16 @@
                 "summary": "Maak een CONTACTMOMENT aan.",
                 "description": "Maak een CONTACTMOMENT aan.",
                 "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "Content type van de verzoekinhoud.",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "application/json"
+                        ]
+                    },
                     {
                         "name": "data",
                         "in": "body",
@@ -577,7 +594,7 @@
                     {
                         "name": "If-None-Match",
                         "in": "header",
-                        "description": "Voer een voorwaardelijk verzoek uit. Deze header moet \u00e9\u00e9n of meerdere ETag-waardes bevatten van resources die de consumer gecached heeft. Indien de waarde van de ETag van de huidige resource voorkomt in deze set, dan antwoord de provider met een lege HTTP 304 request. Zie [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match) voor meer informatie.",
+                        "description": "Voer een voorwaardelijk verzoek uit. Deze header moet \u00e9\u00e9n of meerdere ETag-waardes bevatten van resources die de consumer gecached heeft. Indien de waarde van de ETag van de huidige resource voorkomt in deze set, dan antwoordt de provider met een lege HTTP 304 request. Zie [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match) voor meer informatie.",
                         "required": false,
                         "type": "string",
                         "examples": {
@@ -777,7 +794,7 @@
                     {
                         "name": "If-None-Match",
                         "in": "header",
-                        "description": "Voer een voorwaardelijk verzoek uit. Deze header moet \u00e9\u00e9n of meerdere ETag-waardes bevatten van resources die de consumer gecached heeft. Indien de waarde van de ETag van de huidige resource voorkomt in deze set, dan antwoord de provider met een lege HTTP 304 request. Zie [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match) voor meer informatie.",
+                        "description": "Voer een voorwaardelijk verzoek uit. Deze header moet \u00e9\u00e9n of meerdere ETag-waardes bevatten van resources die de consumer gecached heeft. Indien de waarde van de ETag van de huidige resource voorkomt in deze set, dan antwoordt de provider met een lege HTTP 304 request. Zie [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match) voor meer informatie.",
                         "required": false,
                         "type": "string",
                         "examples": {
@@ -954,6 +971,16 @@
                 "summary": "Werk een CONTACTMOMENT in zijn geheel bij.",
                 "description": "Werk een CONTACTMOMENT in zijn geheel bij.",
                 "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "Content type van de verzoekinhoud.",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "application/json"
+                        ]
+                    },
                     {
                         "name": "data",
                         "in": "body",
@@ -1156,6 +1183,16 @@
                 "summary": "Werk een CONTACTMOMENT deels bij.",
                 "description": "Werk een CONTACTMOMENT deels bij.",
                 "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "Content type van de verzoekinhoud.",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "application/json"
+                        ]
+                    },
                     {
                         "name": "data",
                         "in": "body",
@@ -1726,6 +1763,16 @@
                 "description": "Maak een OBJECT-CONTACTMOMENT relatie aan.\n\n**LET OP: Dit endpoint hoor je als consumer niet zelf aan te spreken.**\n\nAndere API's, zoals de Zaken API, gebruiken dit\nendpoint bij het synchroniseren van relaties.",
                 "parameters": [
                     {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "Content type van de verzoekinhoud.",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "application/json"
+                        ]
+                    },
+                    {
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -1905,7 +1952,7 @@
                     {
                         "name": "If-None-Match",
                         "in": "header",
-                        "description": "Voer een voorwaardelijk verzoek uit. Deze header moet \u00e9\u00e9n of meerdere ETag-waardes bevatten van resources die de consumer gecached heeft. Indien de waarde van de ETag van de huidige resource voorkomt in deze set, dan antwoord de provider met een lege HTTP 304 request. Zie [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match) voor meer informatie.",
+                        "description": "Voer een voorwaardelijk verzoek uit. Deze header moet \u00e9\u00e9n of meerdere ETag-waardes bevatten van resources die de consumer gecached heeft. Indien de waarde van de ETag van de huidige resource voorkomt in deze set, dan antwoordt de provider met een lege HTTP 304 request. Zie [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match) voor meer informatie.",
                         "required": false,
                         "type": "string",
                         "examples": {
