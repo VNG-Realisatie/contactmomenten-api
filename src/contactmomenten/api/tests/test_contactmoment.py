@@ -28,7 +28,7 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = response.json()
-        self.assertEqual(len(data), 2)
+        self.assertEqual(len(data["results"]), 2)
 
     def test_read_contactmoment(self):
         contactmoment = ContactMomentFactory.create(
@@ -222,6 +222,30 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(ContactMoment.objects.count(), 0)
 
+    def test_pagination_default(self):
+        ContactMomentFactory.create_batch(2)
+        url = reverse(ContactMoment)
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 2)
+        self.assertIsNone(response_data["previous"])
+        self.assertIsNone(response_data["next"])
+
+    def test_pagination_page_param(self):
+        ContactMomentFactory.create_batch(2)
+        url = reverse(ContactMoment)
+
+        response = self.client.get(url, {"page": 1})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 2)
+        self.assertIsNone(response_data["previous"])
+        self.assertIsNone(response_data["next"])
+
 
 class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
     heeft_alle_autorisaties = True
@@ -236,7 +260,7 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 1)
+        self.assertEqual(len(response.data["results"]), 1)
         self.assertEqual(
-            response.data[0]["voorkeurstaal"], "nld",
+            response.data["results"][0]["voorkeurstaal"], "nld",
         )
