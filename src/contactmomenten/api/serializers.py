@@ -113,7 +113,11 @@ class ObjectContactMomentSerializer(serializers.HyperlinkedModelSerializer):
                 "lookup_field": "uuid",
                 "validators": [IsImmutableValidator()],
             },
-            "object": {"validators": [IsImmutableValidator()],},
+            "object": {
+                "validators": [IsImmutableValidator()],
+                "min_length": 1,
+                "max_length": 1000,
+            },
             "object_type": {"validators": [IsImmutableValidator()]},
         }
         validators = [ObjectContactMomentCreateValidator()]
