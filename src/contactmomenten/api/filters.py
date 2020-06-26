@@ -1,7 +1,11 @@
 from vng_api_common.filtersets import FilterSet
 
 from contactmomenten.datamodel.constants import Rol
-from contactmomenten.datamodel.models import ContactMoment, KlantContactMoment, ObjectContactMoment
+from contactmomenten.datamodel.models import (
+    ContactMoment,
+    KlantContactMoment,
+    ObjectContactMoment,
+)
 
 
 class ObjectContactMomentFilter(FilterSet):

@@ -18,7 +18,11 @@ from contactmomenten.datamodel.models import (
 )
 
 from .audits import AUDIT_CONTACTMOMENTEN
-from .filters import ContactMomentFilter, KlantContactMomentFilter, ObjectContactMomentFilter
+from .filters import (
+    ContactMomentFilter,
+    KlantContactMomentFilter,
+    ObjectContactMomentFilter,
+)
 from .kanalen import KANAAL_CONTACTMOMENTEN
 from .scopes import (
     SCOPE_CONTACTMOMENTEN_AANMAKEN,
