@@ -52,7 +52,7 @@ class CreateNotifKanaalTestCase(APITestCase):
 
         stdout = StringIO()
         call_command(
-            "register_kanaal", nc_api_root="https://example.com/api/v1", stdout=stdout
+            "register_kanaal", nc_api_root="https://example.com/api/v1", stdout=stdout,
         )
 
         client.create.assert_called_once_with(
