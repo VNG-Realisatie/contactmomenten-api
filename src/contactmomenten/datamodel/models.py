@@ -29,10 +29,10 @@ class ContactMoment(APIMixin, models.Model):
             "URL-referentie naar een KLANT (in Klanten API) indien de klantinteractie niet anoniem is."
         ),
     )
-    interactiedatum = models.DateTimeField(
+    registratiedatum = models.DateTimeField(
         default=timezone.now,
         help_text=_(
-            "De datum en het tijdstip waarop de klantinteractie heeft plaatsgevonden."
+            "De datum en het tijdstip waarop het CONTACTMOMENT is geregistreerd."
         ),
     )
     tekst = models.TextField(
@@ -110,7 +110,7 @@ class ContactMoment(APIMixin, models.Model):
         if klant_path.endswith("/"):
             klant_path = klant_path.rstrip("/")
         klant_id = klant_path.rsplit("/")[-1]
-        return f"{self.bronorganisatie} {klant_id} at {self.interactiedatum} via {self.kanaal}"
+        return f"{self.bronorganisatie} {klant_id} at {self.registratiedatum} via {self.kanaal}"
 
 
 class ObjectContactMoment(APIMixin, models.Model):

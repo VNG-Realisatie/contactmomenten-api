@@ -61,6 +61,112 @@
                         "required": false,
                         "type": "string",
                         "format": "uri"
+                    },
+                    {
+                        "name": "bronorganisatie",
+                        "in": "query",
+                        "description": "Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die de klantinteractie heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "registratiedatum",
+                        "in": "query",
+                        "description": "De datum en het tijdstip waarop het CONTACTMOMENT is geregistreerd.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "registratiedatum__gt",
+                        "in": "query",
+                        "description": "De datum en het tijdstip waarop het CONTACTMOMENT is geregistreerd.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "registratiedatum__gte",
+                        "in": "query",
+                        "description": "De datum en het tijdstip waarop het CONTACTMOMENT is geregistreerd.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "registratiedatum__lt",
+                        "in": "query",
+                        "description": "De datum en het tijdstip waarop het CONTACTMOMENT is geregistreerd.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "registratiedatum__lte",
+                        "in": "query",
+                        "description": "De datum en het tijdstip waarop het CONTACTMOMENT is geregistreerd.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "kanaal",
+                        "in": "query",
+                        "description": "Het communicatiekanaal waarlangs het CONTACTMOMENT gevoerd wordt",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "voorkeurskanaal",
+                        "in": "query",
+                        "description": "Het communicatiekanaal dat voor opvolging van de klantinteractie de voorkeur heeft van de KLANT.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "initiatiefnemer",
+                        "in": "query",
+                        "description": "De partij die het contact heeft ge\u00efnitieerd.",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "gemeente",
+                            "klant"
+                        ]
+                    },
+                    {
+                        "name": "medewerker",
+                        "in": "query",
+                        "description": "URL-referentie naar een medewerker",
+                        "required": false,
+                        "type": "string",
+                        "format": "uri"
+                    },
+                    {
+                        "name": "ordering",
+                        "in": "query",
+                        "description": "Het veld waarop de resultaten geordend worden.",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "url",
+                            "-url",
+                            "bronorganisatie",
+                            "-bronorganisatie",
+                            "klant",
+                            "-klant",
+                            "registratiedatum",
+                            "-registratiedatum",
+                            "kanaal",
+                            "-kanaal",
+                            "voorkeurskanaal",
+                            "-voorkeurskanaal",
+                            "tekst",
+                            "-tekst",
+                            "onderwerp_links",
+                            "-onderwerp_links",
+                            "initiatiefnemer",
+                            "-initiatiefnemer",
+                            "medewerker",
+                            "-medewerker",
+                            "medewerker_identificatie",
+                            "-medewerker_identificatie"
+                        ]
                     }
                 ],
                 "responses": {
@@ -3080,9 +3186,9 @@
                     "format": "uri",
                     "maxLength": 1000
                 },
-                "interactiedatum": {
-                    "title": "Interactiedatum",
-                    "description": "De datum en het tijdstip waarop de klantinteractie heeft plaatsgevonden.",
+                "registratiedatum": {
+                    "title": "Registratiedatum",
+                    "description": "De datum en het tijdstip waarop het CONTACTMOMENT is geregistreerd.",
                     "type": "string",
                     "format": "date-time"
                 },
