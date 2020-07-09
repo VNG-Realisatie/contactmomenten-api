@@ -77,6 +77,17 @@ Uitleg bij mogelijke waarden:
 | resourceWeergave | Vriendelijke identificatie van het object. | string | ja | C​R​U​D |
 | aanmaakdatum | De datum waarop de handeling is gedaan. | string | nee | ~~C~~​R​~~U~~​~~D~~ |
 
+## KlantContactMoment
+
+Objecttype op [GEMMA Online](https://www.gemmaonline.nl/index.php/Rgbz_1.0/doc/objecttype/klantcontactmoment)
+
+| Attribuut | Omschrijving | Type | Verplicht | CRUD* |
+| --- | --- | --- | --- | --- |
+| url | URL-referentie naar dit object. Dit is de unieke identificatie en locatie van dit object. | string | nee | ~~C~~​R​~~U~~​~~D~~ |
+| contactmoment | URL-referentie naar het CONTACTMOMENT. | string | ja | C​R​U​D |
+| klant | URL-referentie naar de KLANT. | string | ja | C​R​U​D |
+| rol | De rol van de KLANT in het CONTACTMOMENT. Indien de KLANT zowel gesprekspartner als belanghebbende is, dan worden er twee KLANTCONTACTMOMENTen aangemaakt. | string | ja | C​R​U​D |
+
 ## ObjectContactMoment
 
 Objecttype op [GEMMA Online](https://www.gemmaonline.nl/index.php/Rgbz_1.0/doc/objecttype/objectcontactmoment)

@@ -7,6 +7,7 @@ from vng_api_common.schema import SchemaView
 from .viewsets import (
     ContactMomentAuditTrailViewSet,
     ContactMomentViewSet,
+    KlantContactMomentViewSet,
     ObjectContactMomentViewSet,
 )
 
@@ -17,6 +18,7 @@ router.register(
     [routers.nested("audittrail", ContactMomentAuditTrailViewSet)],
 )
 router.register("objectcontactmomenten", ObjectContactMomentViewSet)
+router.register("klantcontactmomenten", KlantContactMomentViewSet)
 
 # TODO: the EndpointEnumerator seems to choke on path and re_path
 

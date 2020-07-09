@@ -30,3 +30,11 @@ class MedewerkerFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = "datamodel.Medewerker"
+
+
+class KlantContactMomentFactory(factory.django.DjangoModelFactory):
+    contactmoment = factory.SubFactory(ContactMomentFactory)
+    klant = factory.Faker("url")
+
+    class Meta:
+        model = "datamodel.KlantContactMoment"
