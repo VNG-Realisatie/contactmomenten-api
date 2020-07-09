@@ -41,7 +41,10 @@ logger = logging.getLogger(__name__)
 
 
 class ContactMomentViewSet(
-    NotificationViewSetMixin, AuditTrailViewsetMixin, viewsets.ModelViewSet
+    CheckQueryParamsMixin,
+    NotificationViewSetMixin,
+    AuditTrailViewsetMixin,
+    viewsets.ModelViewSet,
 ):
     """
     Opvragen en bewerken van CONTACTMOMENTen.

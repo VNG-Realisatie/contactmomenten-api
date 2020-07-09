@@ -37,6 +37,8 @@ class ContactMomentSerializer(serializers.HyperlinkedModelSerializer):
         model = ContactMoment
         fields = (
             "url",
+            "vorig_contactmoment",
+            "volgend_contactmoment",
             "bronorganisatie",
             "klant",
             "interactiedatum",
@@ -51,6 +53,13 @@ class ContactMomentSerializer(serializers.HyperlinkedModelSerializer):
         )
         extra_kwargs = {
             "url": {"lookup_field": "uuid"},
+            "vorig_contactmoment": {"lookup_field": "uuid"},
+            "volgend_contactmoment": {
+                "lookup_field": "uuid",
+                "read_only": True,
+                "allow_null": True,
+                "help_text": _("URL-referentie naar het volgende CONTACTMOMENT."),
+            },
         }
 
     def validate(self, attrs):

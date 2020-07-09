@@ -22,6 +22,8 @@ Objecttype op [GEMMA Online](https://www.gemmaonline.nl/index.php/Rgbz_1.0/doc/o
 | Attribuut | Omschrijving | Type | Verplicht | CRUD* |
 | --- | --- | --- | --- | --- |
 | url | URL-referentie naar dit object. Dit is de unieke identificatie en locatie van dit object. | string | nee | ~~C~~​R​~~U~~​~~D~~ |
+| vorigContactmoment | URL-referentie naar het vorige CONTACTMOMENT. | string | nee | C​R​U​D |
+| volgendContactmoment | URL-referentie naar het volgende CONTACTMOMENT. | string | nee | ~~C~~​R​~~U~~​~~D~~ |
 | bronorganisatie | Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die de klantinteractie heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef | string | ja | C​R​U​D |
 | klant | URL-referentie naar een KLANT (in Klanten API) indien de klantinteractie niet anoniem is. | string | nee | C​R​U​D |
 | interactiedatum | De datum en het tijdstip waarop de klantinteractie heeft plaatsgevonden. | string | nee | C​R​U​D |

@@ -86,6 +86,28 @@ paths:
       operationId: contactmoment_list
       summary: Alle CONTACTMOMENTen opvragen.
       description: Alle CONTACTMOMENTen opvragen.
+      parameters:
+      - name: voorkeurstaal
+        in: query
+        description: 'Een ISO 639-2/B taalcode waarin de inhoud van het INFORMATIEOBJECT
+          is vastgelegd. Voorbeeld: `nld`. Zie: https://www.iso.org/standard/4767.html'
+        required: false
+        schema:
+          type: string
+      - name: vorigContactmoment
+        in: query
+        description: URL-referentie naar het vorige CONTACTMOMENT.
+        required: false
+        schema:
+          type: string
+          format: uri
+      - name: volgendContactmoment
+        in: query
+        description: URL-referentie naar het volgende CONTACTMOMENT.
+        required: false
+        schema:
+          type: string
+          format: uri
       responses:
         '200':
           description: OK
@@ -101,6 +123,18 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ContactMoment'
+        '400':
+          description: Bad request
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Geeft een specifieke API-versie aan in de context van
+                een specifieke aanroep. Voorbeeld: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ValidatieFout'
         '401':
           description: Unauthorized
           headers:
@@ -207,6 +241,14 @@ paths:
       summary: Maak een CONTACTMOMENT aan.
       description: Maak een CONTACTMOMENT aan.
       parameters:
+      - name: Content-Type
+        in: header
+        description: Content type van de verzoekinhoud.
+        required: true
+        schema:
+          type: string
+          enum:
+          - application/json
       - name: X-NLX-Request-Application-Id
         in: header
         description: Identificatie van de applicatie die het verzoek stuurt (indien
@@ -501,7 +543,7 @@ paths:
         description: "Voer een voorwaardelijk verzoek uit. Deze header moet \xE9\xE9\
           n of meerdere ETag-waardes bevatten van resources die de consumer gecached\
           \ heeft. Indien de waarde van de ETag van de huidige resource voorkomt in\
-          \ deze set, dan antwoord de provider met een lege HTTP 304 request. Zie\
+          \ deze set, dan antwoordt de provider met een lege HTTP 304 request. Zie\
           \ [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match)\
           \ voor meer informatie."
         required: false
@@ -672,7 +714,7 @@ paths:
         description: "Voer een voorwaardelijk verzoek uit. Deze header moet \xE9\xE9\
           n of meerdere ETag-waardes bevatten van resources die de consumer gecached\
           \ heeft. Indien de waarde van de ETag van de huidige resource voorkomt in\
-          \ deze set, dan antwoord de provider met een lege HTTP 304 request. Zie\
+          \ deze set, dan antwoordt de provider met een lege HTTP 304 request. Zie\
           \ [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match)\
           \ voor meer informatie."
         required: false
@@ -822,6 +864,14 @@ paths:
       summary: Werk een CONTACTMOMENT in zijn geheel bij.
       description: Werk een CONTACTMOMENT in zijn geheel bij.
       parameters:
+      - name: Content-Type
+        in: header
+        description: Content type van de verzoekinhoud.
+        required: true
+        schema:
+          type: string
+          enum:
+          - application/json
       - name: X-NLX-Request-Application-Id
         in: header
         description: Identificatie van de applicatie die het verzoek stuurt (indien
@@ -987,6 +1037,14 @@ paths:
       summary: Werk een CONTACTMOMENT deels bij.
       description: Werk een CONTACTMOMENT deels bij.
       parameters:
+      - name: Content-Type
+        in: header
+        description: Content type van de verzoekinhoud.
+        required: true
+        schema:
+          type: string
+          enum:
+          - application/json
       - name: X-NLX-Request-Application-Id
         in: header
         description: Identificatie van de applicatie die het verzoek stuurt (indien
@@ -2063,6 +2121,15 @@ paths:
         Andere API''s, zoals de Zaken API, gebruiken dit
 
         endpoint bij het synchroniseren van relaties.'
+      parameters:
+      - name: Content-Type
+        in: header
+        description: Content type van de verzoekinhoud.
+        required: true
+        schema:
+          type: string
+          enum:
+          - application/json
       requestBody:
         content:
           application/json:
@@ -2212,7 +2279,7 @@ paths:
         description: "Voer een voorwaardelijk verzoek uit. Deze header moet \xE9\xE9\
           n of meerdere ETag-waardes bevatten van resources die de consumer gecached\
           \ heeft. Indien de waarde van de ETag van de huidige resource voorkomt in\
-          \ deze set, dan antwoord de provider met een lege HTTP 304 request. Zie\
+          \ deze set, dan antwoordt de provider met een lege HTTP 304 request. Zie\
           \ [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match)\
           \ voor meer informatie."
         required: false
@@ -2570,6 +2637,19 @@ components:
           readOnly: true
           maxLength: 1000
           minLength: 1
+        vorigContactmoment:
+          title: Vorig contactmoment
+          description: URL-referentie naar het vorige CONTACTMOMENT.
+          type: string
+          format: uri
+          nullable: true
+        volgendContactmoment:
+          title: Volgend contactmoment
+          description: URL-referentie naar het volgende CONTACTMOMENT.
+          type: string
+          format: uri
+          readOnly: true
+          nullable: true
         bronorganisatie:
           title: Bronorganisatie
           description: Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie
