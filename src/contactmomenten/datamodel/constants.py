@@ -10,3 +10,8 @@ class InitiatiefNemer(DjangoChoices):
 
 class ObjectTypes(DjangoChoices):
     zaak = ChoiceItem("zaak", _("Zaak"))
+
+
+class Rol(DjangoChoices):
+    belanghebbende = ChoiceItem("belanghebbende", "Belanghebbende")
+    gesprekspartner = ChoiceItem("gesprekspartner", "Gesprekspartner")

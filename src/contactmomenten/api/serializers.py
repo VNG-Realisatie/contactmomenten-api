@@ -9,6 +9,7 @@ from vng_api_common.validators import IsImmutableValidator
 from contactmomenten.datamodel.constants import ObjectTypes
 from contactmomenten.datamodel.models import (
     ContactMoment,
+    KlantContactMoment,
     Medewerker,
     ObjectContactMoment,
 )
@@ -36,9 +37,11 @@ class ContactMomentSerializer(serializers.HyperlinkedModelSerializer):
         model = ContactMoment
         fields = (
             "url",
+            "vorig_contactmoment",
+            "volgend_contactmoment",
             "bronorganisatie",
             "klant",
-            "interactiedatum",
+            "registratiedatum",
             "kanaal",
             "voorkeurskanaal",
             "voorkeurstaal",
@@ -50,6 +53,13 @@ class ContactMomentSerializer(serializers.HyperlinkedModelSerializer):
         )
         extra_kwargs = {
             "url": {"lookup_field": "uuid"},
+            "vorig_contactmoment": {"lookup_field": "uuid"},
+            "volgend_contactmoment": {
+                "lookup_field": "uuid",
+                "read_only": True,
+                "allow_null": True,
+                "help_text": _("URL-referentie naar het volgende CONTACTMOMENT."),
+            },
         }
 
     def validate(self, attrs):
@@ -130,3 +140,18 @@ class ObjectContactMomentSerializer(serializers.HyperlinkedModelSerializer):
 
         if not hasattr(self, "initial_data"):
             return
+
+
+class KlantContactMomentSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = KlantContactMoment
+        fields = (
+            "url",
+            "contactmoment",
+            "klant",
+            "rol",
+        )
+        extra_kwargs = {
+            "url": {"lookup_field": "uuid"},
+            "contactmoment": {"lookup_field": "uuid"},
+        }

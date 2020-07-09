@@ -9,7 +9,7 @@ from vng_api_common.fields import RSINField
 from vng_api_common.models import APIMixin
 from vng_api_common.utils import get_uuid_from_path
 
-from .constants import InitiatiefNemer, ObjectTypes
+from .constants import InitiatiefNemer, ObjectTypes, Rol
 
 
 class ContactMoment(APIMixin, models.Model):
@@ -29,10 +29,10 @@ class ContactMoment(APIMixin, models.Model):
             "URL-referentie naar een KLANT (in Klanten API) indien de klantinteractie niet anoniem is."
         ),
     )
-    interactiedatum = models.DateTimeField(
+    registratiedatum = models.DateTimeField(
         default=timezone.now,
         help_text=_(
-            "De datum en het tijdstip waarop de klantinteractie heeft plaatsgevonden."
+            "De datum en het tijdstip waarop het CONTACTMOMENT is geregistreerd."
         ),
     )
     tekst = models.TextField(
@@ -86,6 +86,14 @@ class ContactMoment(APIMixin, models.Model):
         blank=True,
         default=list,
     )
+    vorig_contactmoment = models.OneToOneField(
+        "self",
+        null=True,
+        blank=True,
+        on_delete=models.DO_NOTHING,
+        related_name="volgend_contactmoment",
+        help_text=_("URL-referentie naar het vorige CONTACTMOMENT."),
+    )
 
     class Meta:
         verbose_name = "contactmoment"
@@ -102,7 +110,7 @@ class ContactMoment(APIMixin, models.Model):
         if klant_path.endswith("/"):
             klant_path = klant_path.rstrip("/")
         klant_id = klant_path.rsplit("/")[-1]
-        return f"{self.bronorganisatie} {klant_id} at {self.interactiedatum} via {self.kanaal}"
+        return f"{self.bronorganisatie} {klant_id} at {self.registratiedatum} via {self.kanaal}"
 
 
 class ObjectContactMoment(APIMixin, models.Model):
@@ -132,6 +140,29 @@ class ObjectContactMoment(APIMixin, models.Model):
         verbose_name = "object-contactmoment"
         verbose_name_plural = "object-contactmomenten"
         unique_together = ("contactmoment", "object")
+
+
+class KlantContactMoment(APIMixin, models.Model):
+    uuid = models.UUIDField(
+        unique=True, default=uuid.uuid4, help_text="Unieke resource identifier (UUID4)"
+    )
+    contactmoment = models.ForeignKey(
+        ContactMoment,
+        on_delete=models.CASCADE,
+        help_text=_("URL-referentie naar het CONTACTMOMENT."),
+    )
+    klant = models.URLField(
+        help_text=_("URL-referentie naar de KLANT."), max_length=1000
+    )
+    rol = models.CharField(
+        max_length=15,
+        choices=Rol.choices,
+        help_text=_(
+            "De rol van de KLANT in het CONTACTMOMENT. Indien de KLANT zowel "
+            "gesprekspartner als belanghebbende is, dan worden er twee "
+            "KLANTCONTACTMOMENTen aangemaakt."
+        ),
+    )
 
 
 class Medewerker(models.Model):

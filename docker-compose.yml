@@ -4,15 +4,17 @@ version: '3.4'
 services:
   db:
     image: postgres:11-alpine
-    # environment:
-    #   - POSTGRES_USER=${PG_USER:contactmomenten}
-    #   - POSTGRES_PASSWORD=${PG_PASSWORD:contactmomenten}
+    environment:
+      - POSTGRES_USER=${DB_USER:-contactmomenten}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-contactmomenten}
   web:
     build: .
-    image: vngr/klantinteracties-api
+    image: vngr/contactmomenten-api
     environment:
       - DJANGO_SETTINGS_MODULE=contactmomenten.conf.docker
       - SECRET_KEY=${SECRET_KEY}
+      - DB_USER=${DB_USER:-contactmomenten}
+      - DB_PASSWORD=${DB_PASSWORD:-contactmomenten}
     ports:
       - 8000:8000
     depends_on:
