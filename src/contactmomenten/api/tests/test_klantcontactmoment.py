@@ -30,7 +30,7 @@ class KlantContactMomentTests(JWTAuthMixin, APITestCase):
 
     def test_read_klantcontactmoment(self):
         cmc = ContactMomentFactory.create(
-            interactiedatum=make_aware(datetime(2019, 1, 1)),
+            registratiedatum=make_aware(datetime(2019, 1, 1)),
             initiatiefnemer=InitiatiefNemer.gemeente,
         )
         cmc_url = reverse(cmc)
@@ -57,7 +57,7 @@ class KlantContactMomentTests(JWTAuthMixin, APITestCase):
 
     def test_create_klantcontactmoment(self):
         cmc = ContactMomentFactory.create(
-            interactiedatum=make_aware(datetime(2019, 1, 1)),
+            registratiedatum=make_aware(datetime(2019, 1, 1)),
             initiatiefnemer=InitiatiefNemer.gemeente,
         )
         cmc_url = reverse(cmc)
