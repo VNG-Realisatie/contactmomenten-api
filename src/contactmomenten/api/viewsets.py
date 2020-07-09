@@ -11,10 +11,18 @@ from vng_api_common.notifications.viewsets import NotificationViewSetMixin
 from vng_api_common.permissions import AuthScopesRequired
 from vng_api_common.viewsets import CheckQueryParamsMixin
 
-from contactmomenten.datamodel.models import ContactMoment, ObjectContactMoment
+from contactmomenten.datamodel.models import (
+    ContactMoment,
+    KlantContactMoment,
+    ObjectContactMoment,
+)
 
 from .audits import AUDIT_CONTACTMOMENTEN
-from .filters import ContactMomentFilter, ObjectContactMomentFilter
+from .filters import (
+    ContactMomentFilter,
+    KlantContactMomentFilter,
+    ObjectContactMomentFilter,
+)
 from .kanalen import KANAAL_CONTACTMOMENTEN
 from .scopes import (
     SCOPE_CONTACTMOMENTEN_AANMAKEN,
@@ -22,7 +30,11 @@ from .scopes import (
     SCOPE_CONTACTMOMENTEN_ALLES_VERWIJDEREN,
     SCOPE_CONTACTMOMENTEN_BIJWERKEN,
 )
-from .serializers import ContactMomentSerializer, ObjectContactMomentSerializer
+from .serializers import (
+    ContactMomentSerializer,
+    KlantContactMomentSerializer,
+    ObjectContactMomentSerializer,
+)
 from .validators import ObjectContactMomentDestroyValidator
 
 logger = logging.getLogger(__name__)
@@ -170,3 +182,55 @@ class ContactMomentAuditTrailViewSet(AuditTrailViewSet):
     """
 
     main_resource_lookup_field = "contactmoment_uuid"
+
+
+class KlantContactMomentViewSet(
+    CheckQueryParamsMixin,
+    mixins.CreateModelMixin,
+    mixins.DestroyModelMixin,
+    viewsets.ReadOnlyModelViewSet,
+):
+    """
+    Opvragen en verwijderen van OBJECT-CONTACTMOMENT relaties.
+
+    Het betreft een relatie tussen een willekeurig OBJECT, bijvoorbeeld een
+    ZAAK in de Zaken API, en een CONTACTMOMENT.
+
+    create:
+    Maak een KLANT-CONTACTMOMENT relatie aan.
+
+    Registreer een CONTACTMOMENT bij een KLANT.
+
+    **Er wordt gevalideerd op**
+
+    * geldigheid `contactmoment` URL
+    * geldigheid `klant` URL
+    * de combinatie `contactmoment` en `klant` moet uniek zijn
+
+    list:
+    Alle KLANT-CONTACTMOMENT relaties opvragen.
+
+    Deze lijst kan gefilterd wordt met query-string parameters.
+
+    retrieve:
+    Een specifieke KLANT-CONTACTMOMENT relatie opvragen.
+
+    Een specifieke KLANT-CONTACTMOMENT relatie opvragen.
+
+    destroy:
+    Verwijder een KLANT-CONTACTMOMENT relatie.
+
+    Verwijder een KLANT-CONTACTMOMENT relatie.
+    """
+
+    queryset = KlantContactMoment.objects.all()
+    serializer_class = KlantContactMomentSerializer
+    filterset_class = KlantContactMomentFilter
+    lookup_field = "uuid"
+    permission_classes = (AuthScopesRequired,)
+    required_scopes = {
+        "list": SCOPE_CONTACTMOMENTEN_ALLES_LEZEN,
+        "retrieve": SCOPE_CONTACTMOMENTEN_ALLES_LEZEN,
+        "create": SCOPE_CONTACTMOMENTEN_AANMAKEN,
+        "destroy": SCOPE_CONTACTMOMENTEN_ALLES_VERWIJDEREN,
+    }

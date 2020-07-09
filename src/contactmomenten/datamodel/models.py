@@ -9,7 +9,7 @@ from vng_api_common.fields import RSINField
 from vng_api_common.models import APIMixin
 from vng_api_common.utils import get_uuid_from_path
 
-from .constants import InitiatiefNemer, ObjectTypes
+from .constants import InitiatiefNemer, ObjectTypes, Rol
 
 
 class ContactMoment(APIMixin, models.Model):
@@ -140,6 +140,29 @@ class ObjectContactMoment(APIMixin, models.Model):
         verbose_name = "object-contactmoment"
         verbose_name_plural = "object-contactmomenten"
         unique_together = ("contactmoment", "object")
+
+
+class KlantContactMoment(APIMixin, models.Model):
+    uuid = models.UUIDField(
+        unique=True, default=uuid.uuid4, help_text="Unieke resource identifier (UUID4)"
+    )
+    contactmoment = models.ForeignKey(
+        ContactMoment,
+        on_delete=models.CASCADE,
+        help_text=_("URL-referentie naar het CONTACTMOMENT."),
+    )
+    klant = models.URLField(
+        help_text=_("URL-referentie naar de KLANT."), max_length=1000
+    )
+    rol = models.CharField(
+        max_length=15,
+        choices=Rol.choices,
+        help_text=_(
+            "De rol van de KLANT in het CONTACTMOMENT. Indien de KLANT zowel "
+            "gesprekspartner als belanghebbende is, dan worden er twee "
+            "KLANTCONTACTMOMENTen aangemaakt."
+        ),
+    )
 
 
 class Medewerker(models.Model):

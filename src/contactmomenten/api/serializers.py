@@ -9,6 +9,7 @@ from vng_api_common.validators import IsImmutableValidator
 from contactmomenten.datamodel.constants import ObjectTypes
 from contactmomenten.datamodel.models import (
     ContactMoment,
+    KlantContactMoment,
     Medewerker,
     ObjectContactMoment,
 )
@@ -135,3 +136,18 @@ class ObjectContactMomentSerializer(serializers.HyperlinkedModelSerializer):
 
         if not hasattr(self, "initial_data"):
             return
+
+
+class KlantContactMomentSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = KlantContactMoment
+        fields = (
+            "url",
+            "contactmoment",
+            "klant",
+            "rol",
+        )
+        extra_kwargs = {
+            "url": {"lookup_field": "uuid"},
+            "contactmoment": {"lookup_field": "uuid"},
+        }

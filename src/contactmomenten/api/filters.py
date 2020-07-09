@@ -3,7 +3,12 @@ from django.utils.translation import ugettext_lazy as _
 from vng_api_common.filters import URLModelChoiceFilter
 from vng_api_common.filtersets import FilterSet
 
-from contactmomenten.datamodel.models import ContactMoment, ObjectContactMoment
+from contactmomenten.datamodel.constants import Rol
+from contactmomenten.datamodel.models import (
+    ContactMoment,
+    KlantContactMoment,
+    ObjectContactMoment,
+)
 
 
 class ObjectContactMomentFilter(FilterSet):
@@ -30,3 +35,9 @@ class ContactMomentFilter(FilterSet):
         else:
             filter = super().filter_for_field(f, name, lookup_expr)
         return filter
+
+
+class KlantContactMomentFilter(FilterSet):
+    class Meta:
+        model = KlantContactMoment
+        fields = ("contactmoment", "klant", "rol")
