@@ -196,7 +196,7 @@ The easiest way to get the project started is by using `Docker Compose`_.
    system you can run ``docker system prune``.
 
 .. _Docker Compose: https://docs.docker.com/compose/install/
-.. _Github: https://github.com/maykinmedia/contactmomenten/
+.. _Github: https://github.com/VNG-Realisatie/contactmomenten/
 
 
 More Docker

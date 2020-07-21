@@ -29,8 +29,8 @@ local.py
 .env
 
 # Static files build by gulp
-src/kcc/static/css/admin/admin_overrides.css
-src/kcc/static/css/screen.css
+src/contactmomenten/static/css/admin/admin_overrides.css
+src/contactmomenten/static/css/screen.css
 
-src/kcc/static/fonts/
-src/kcc/static/js/
+src/contactmomenten/static/fonts/
+src/contactmomenten/static/js/
