@@ -173,7 +173,9 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "medewerker",},
+            options={
+                "verbose_name": "medewerker",
+            },
         ),
         migrations.CreateModel(
             name="ObjectContactMoment",

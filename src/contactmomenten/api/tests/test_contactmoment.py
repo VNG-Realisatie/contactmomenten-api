@@ -317,12 +317,15 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
         ContactMomentFactory.create(voorkeurstaal="eng")
 
         response = self.client.get(
-            self.list_url, {"voorkeurstaal": "nld"}, HTTP_HOST="testserver.com",
+            self.list_url,
+            {"voorkeurstaal": "nld"},
+            HTTP_HOST="testserver.com",
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data["results"]), 1)
         self.assertEqual(
-            response.data["results"][0]["voorkeurstaal"], "nld",
+            response.data["results"][0]["voorkeurstaal"],
+            "nld",
         )
 
     def test_filter_bronorganisatie(self):
@@ -330,13 +333,16 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
         ContactMomentFactory.create(bronorganisatie="000099998")
 
         response = self.client.get(
-            self.list_url, {"bronorganisatie": "000000000"}, HTTP_HOST="testserver.com",
+            self.list_url,
+            {"bronorganisatie": "000000000"},
+            HTTP_HOST="testserver.com",
         )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data["results"]), 1, response.data)
         self.assertEqual(
-            response.data["results"][0]["bronorganisatie"], "000000000",
+            response.data["results"][0]["bronorganisatie"],
+            "000000000",
         )
 
     def test_list_contactmomenten_filter_vorig_contactmoment(self):
@@ -391,7 +397,8 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data["results"]), 1)
         self.assertEqual(
-            response.data["results"][0]["registratiedatum"], "2020-01-01T12:00:00Z",
+            response.data["results"][0]["registratiedatum"],
+            "2020-01-01T12:00:00Z",
         )
 
     def test_filter_registratiedatum_gt(self):
@@ -407,7 +414,8 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data["results"]), 1)
         self.assertEqual(
-            response.data["results"][0]["registratiedatum"], "2020-01-01T12:00:00Z",
+            response.data["results"][0]["registratiedatum"],
+            "2020-01-01T12:00:00Z",
         )
 
     def test_filter_registratiedatum_gte(self):
@@ -423,7 +431,8 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data["results"]), 1)
         self.assertEqual(
-            response.data["results"][0]["registratiedatum"], "2020-01-01T12:00:00Z",
+            response.data["results"][0]["registratiedatum"],
+            "2020-01-01T12:00:00Z",
         )
 
     def test_filter_registratiedatum_lt(self):
@@ -439,7 +448,8 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data["results"]), 1)
         self.assertEqual(
-            response.data["results"][0]["registratiedatum"], "2019-03-02T22:00:00Z",
+            response.data["results"][0]["registratiedatum"],
+            "2019-03-02T22:00:00Z",
         )
 
     def test_filter_registratiedatum_lte(self):
@@ -455,7 +465,8 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data["results"]), 1)
         self.assertEqual(
-            response.data["results"][0]["registratiedatum"], "2019-03-02T22:00:00Z",
+            response.data["results"][0]["registratiedatum"],
+            "2019-03-02T22:00:00Z",
         )
 
     def test_filter_kanaal(self):
@@ -463,13 +474,16 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
         ContactMomentFactory.create(kanaal="kanaal2")
 
         response = self.client.get(
-            self.list_url, {"kanaal": "kanaal1"}, HTTP_HOST="testserver.com",
+            self.list_url,
+            {"kanaal": "kanaal1"},
+            HTTP_HOST="testserver.com",
         )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data["results"]), 1)
         self.assertEqual(
-            response.data["results"][0]["kanaal"], "kanaal1",
+            response.data["results"][0]["kanaal"],
+            "kanaal1",
         )
 
     def test_filter_voorkeurskanaal(self):
@@ -477,13 +491,16 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
         ContactMomentFactory.create(voorkeurskanaal="kanaal2")
 
         response = self.client.get(
-            self.list_url, {"voorkeurskanaal": "kanaal1"}, HTTP_HOST="testserver.com",
+            self.list_url,
+            {"voorkeurskanaal": "kanaal1"},
+            HTTP_HOST="testserver.com",
         )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data["results"]), 1)
         self.assertEqual(
-            response.data["results"][0]["voorkeurskanaal"], "kanaal1",
+            response.data["results"][0]["voorkeurskanaal"],
+            "kanaal1",
         )
 
     def test_filter_initiatiefnemer(self):
@@ -499,7 +516,8 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data["results"]), 1)
         self.assertEqual(
-            response.data["results"][0]["initiatiefnemer"], InitiatiefNemer.gemeente,
+            response.data["results"][0]["initiatiefnemer"],
+            InitiatiefNemer.gemeente,
         )
 
     def test_filter_medewerker(self):
@@ -524,11 +542,14 @@ class ContactMomentFilterTests(JWTAuthMixin, APITestCase):
         ContactMomentFactory.create(kanaal="abc")
 
         response = self.client.get(
-            self.list_url, {"ordering": "kanaal"}, HTTP_HOST="testserver.com",
+            self.list_url,
+            {"ordering": "kanaal"},
+            HTTP_HOST="testserver.com",
         )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data["results"]), 2)
         self.assertEqual(
-            response.data["results"][0]["kanaal"], "abc",
+            response.data["results"][0]["kanaal"],
+            "abc",
         )

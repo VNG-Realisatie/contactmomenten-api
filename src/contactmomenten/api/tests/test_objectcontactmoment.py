@@ -56,7 +56,9 @@ class ObjectContactMomentTests(JWTAuthMixin, APITestCase):
             },
         )
 
-    @override_settings(LINK_FETCHER="vng_api_common.mocks.link_fetcher_200",)
+    @override_settings(
+        LINK_FETCHER="vng_api_common.mocks.link_fetcher_200",
+    )
     @patch(
         "zds_client.client.get_operation_url",
         return_value="/api/v1/zaakcontactmomenten",
@@ -92,7 +94,9 @@ class ObjectContactMomentTests(JWTAuthMixin, APITestCase):
         self.assertEqual(objectcontactmoment.object_type, ObjectTypes.zaak)
         self.assertEqual(objectcontactmoment.object, ZAAK)
 
-    @override_settings(LINK_FETCHER="vng_api_common.mocks.link_fetcher_200",)
+    @override_settings(
+        LINK_FETCHER="vng_api_common.mocks.link_fetcher_200",
+    )
     @patch(
         "zds_client.client.get_operation_url",
         return_value="/api/v1/zaakcontactmomenten",
