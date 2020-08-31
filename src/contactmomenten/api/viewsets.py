@@ -229,6 +229,7 @@ class KlantContactMomentViewSet(
     queryset = KlantContactMoment.objects.all()
     serializer_class = KlantContactMomentSerializer
     filterset_class = KlantContactMomentFilter
+    pagination_class = PageNumberPagination
     lookup_field = "uuid"
     permission_classes = (AuthScopesRequired,)
     required_scopes = {
