@@ -108,7 +108,9 @@ class KlantContactMomentFilterTests(JWTAuthMixin, APITestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data["results"]), 1)
-        self.assertEqual(response.data["results"][0]["klant"], "https://testserver.com/klant/1")
+        self.assertEqual(
+            response.data["results"][0]["klant"], "https://testserver.com/klant/1"
+        )
 
     def test_filter_contactmoment(self):
         klantcontactmoment = KlantContactMomentFactory.create()
@@ -124,7 +126,8 @@ class KlantContactMomentFilterTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data["results"]), 1)
         self.assertEqual(
-            response.data["results"][0]["contactmoment"], f"http://testserver.com{cmc_url}"
+            response.data["results"][0]["contactmoment"],
+            f"http://testserver.com{cmc_url}",
         )
 
     def test_filter_rol(self):
