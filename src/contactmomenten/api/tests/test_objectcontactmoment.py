@@ -196,6 +196,15 @@ class ObjectContactMomentFilterTests(JWTAuthMixin, APITestCase):
         self.assertEqual(len(response.data["results"]), 1)
         self.assertEqual(response.data["results"][0]["object"], oio.object)
 
+    def test_filter_object_type(self):
+        oio = ObjectContactMomentFactory.create(object_type=ObjectTypes.zaak)
+
+        response = self.client.get(self.list_url, {"objectType": ObjectTypes.zaak})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data["results"]), 1)
+        self.assertEqual(response.data["results"][0]["object_type"], ObjectTypes.zaak)
+
     def test_pagination_default(self):
         ObjectContactMomentFactory.create_batch(2)
         url = reverse(ObjectContactMoment)

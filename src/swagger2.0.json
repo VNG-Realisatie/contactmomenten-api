@@ -40,13 +40,6 @@
                 "description": "Alle CONTACTMOMENTen opvragen.",
                 "parameters": [
                     {
-                        "name": "voorkeurstaal",
-                        "in": "query",
-                        "description": "Een ISO 639-2/B taalcode waarin de inhoud van het INFORMATIEOBJECT is vastgelegd. Voorbeeld: `nld`. Zie: https://www.iso.org/standard/4767.html",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
                         "name": "vorigContactmoment",
                         "in": "query",
                         "description": "URL-referentie naar het vorige CONTACTMOMENT.",
@@ -115,6 +108,13 @@
                         "name": "voorkeurskanaal",
                         "in": "query",
                         "description": "Het communicatiekanaal dat voor opvolging van de klantinteractie de voorkeur heeft van de KLANT.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "voorkeurstaal",
+                        "in": "query",
+                        "description": "Een ISO 639-2/B taalcode waarin de inhoud van het INFORMATIEOBJECT is vastgelegd. Voorbeeld: `nld`. Zie: https://www.iso.org/standard/4767.html",
                         "required": false,
                         "type": "string"
                     },
@@ -2457,6 +2457,16 @@
                         "required": false,
                         "type": "string",
                         "format": "uri"
+                    },
+                    {
+                        "name": "objectType",
+                        "in": "query",
+                        "description": "Het type van het gerelateerde OBJECT.",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "zaak"
+                        ]
                     },
                     {
                         "name": "page",

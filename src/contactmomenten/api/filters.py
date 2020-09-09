@@ -15,7 +15,11 @@ from contactmomenten.datamodel.models import (
 class ObjectContactMomentFilter(FilterSet):
     class Meta:
         model = ObjectContactMoment
-        fields = ("object", "contactmoment")
+        fields = (
+            "object",
+            "contactmoment",
+            "object_type",
+        )
 
 
 class ContactMomentFilter(FilterSet):
@@ -40,13 +44,13 @@ class ContactMomentFilter(FilterSet):
     class Meta:
         model = ContactMoment
         fields = {
-            "voorkeurstaal": ["exact"],
             "vorig_contactmoment": ["exact"],
             "volgend_contactmoment": ["exact"],
             "bronorganisatie": ["exact"],
             "registratiedatum": ["exact", "gt", "gte", "lt", "lte"],
             "kanaal": ["exact"],
             "voorkeurskanaal": ["exact"],
+            "voorkeurstaal": ["exact"],
             "initiatiefnemer": ["exact"],
             "medewerker": ["exact"],
             "ordering": ["exact"],
