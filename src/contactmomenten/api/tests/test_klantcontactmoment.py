@@ -26,7 +26,7 @@ class KlantContactMomentTests(JWTAuthMixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = response.json()
-        self.assertEqual(len(data), 2)
+        self.assertEqual(len(data["results"]), 2)
 
     def test_read_klantcontactmoment(self):
         cmc = ContactMomentFactory.create(
@@ -107,8 +107,10 @@ class KlantContactMomentFilterTests(JWTAuthMixin, APITestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data[0]["klant"], "https://testserver.com/klant/1")
+        self.assertEqual(len(response.data["results"]), 1)
+        self.assertEqual(
+            response.data["results"][0]["klant"], "https://testserver.com/klant/1"
+        )
 
     def test_filter_contactmoment(self):
         klantcontactmoment = KlantContactMomentFactory.create()
@@ -122,9 +124,10 @@ class KlantContactMomentFilterTests(JWTAuthMixin, APITestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 1)
+        self.assertEqual(len(response.data["results"]), 1)
         self.assertEqual(
-            response.data[0]["contactmoment"], f"http://testserver.com{cmc_url}"
+            response.data["results"][0]["contactmoment"],
+            f"http://testserver.com{cmc_url}",
         )
 
     def test_filter_rol(self):
@@ -141,5 +144,17 @@ class KlantContactMomentFilterTests(JWTAuthMixin, APITestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data[0]["rol"], klantcontactmoment.rol)
+        self.assertEqual(len(response.data["results"]), 1)
+        self.assertEqual(response.data["results"][0]["rol"], klantcontactmoment.rol)
+
+    def test_pagination_default(self):
+        KlantContactMomentFactory.create_batch(2)
+        url = reverse(KlantContactMoment)
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()
+        self.assertEqual(response_data["count"], 2)
+        self.assertIsNone(response_data["previous"])
+        self.assertIsNone(response_data["next"])
