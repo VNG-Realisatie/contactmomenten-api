@@ -12,7 +12,9 @@ ZAAK = "http://some.zrc.nl/api/v1/zaken/ffb1a466-fdad-4898-87fa-dae026df38c0"
 class UniqueRepresentationTests(TestCase):
     def test_contactmoment(self):
         contactmoment = ContactMomentFactory.create(
-            bronorganisatie="423182687", klant=KLANT, kanaal="telephone",
+            bronorganisatie="423182687",
+            klant=KLANT,
+            kanaal="telephone",
         )
         self.assertEqual(
             contactmoment.unique_representation(),
@@ -21,7 +23,9 @@ class UniqueRepresentationTests(TestCase):
 
     def test_contactmoment_empty_klant(self):
         contactmoment = ContactMomentFactory.create(
-            bronorganisatie="423182687", kanaal="telephone", klant="",
+            bronorganisatie="423182687",
+            kanaal="telephone",
+            klant="",
         )
         self.assertEqual(
             contactmoment.unique_representation(),

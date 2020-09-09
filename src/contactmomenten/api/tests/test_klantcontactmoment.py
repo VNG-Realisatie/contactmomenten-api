@@ -35,7 +35,8 @@ class KlantContactMomentTests(JWTAuthMixin, APITestCase):
         )
         cmc_url = reverse(cmc)
         klantcontactmoment = KlantContactMomentFactory.create(
-            contactmoment=cmc, rol=Rol.belanghebbende,
+            contactmoment=cmc,
+            rol=Rol.belanghebbende,
         )
         detail_url = reverse(klantcontactmoment)
 
@@ -127,10 +128,17 @@ class KlantContactMomentFilterTests(JWTAuthMixin, APITestCase):
         )
 
     def test_filter_rol(self):
-        klantcontactmoment = KlantContactMomentFactory.create(rol=Rol.belanghebbende,)
-        KlantContactMomentFactory.create(rol=Rol.gesprekspartner,)
+        klantcontactmoment = KlantContactMomentFactory.create(
+            rol=Rol.belanghebbende,
+        )
+        KlantContactMomentFactory.create(
+            rol=Rol.gesprekspartner,
+        )
 
-        response = self.client.get(self.list_url, {"rol": klantcontactmoment.rol},)
+        response = self.client.get(
+            self.list_url,
+            {"rol": klantcontactmoment.rol},
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)

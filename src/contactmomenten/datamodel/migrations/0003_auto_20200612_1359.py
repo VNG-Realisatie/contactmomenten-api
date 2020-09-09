@@ -11,7 +11,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(model_name="contactmoment", name="interactiedatum",),
+        migrations.RemoveField(
+            model_name="contactmoment",
+            name="interactiedatum",
+        ),
         migrations.AddField(
             model_name="contactmoment",
             name="registratiedatum",
