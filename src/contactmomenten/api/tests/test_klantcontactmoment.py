@@ -108,6 +108,35 @@ class KlantContactMomentTests(JWTAuthMixin, APITestCase):
         error = get_validation_errors(response, "klant")
         self.assertEqual(error["code"], "bad-url")
 
+    def test_create_klantcontactmoment_unique_klant_contactmoment_and_rol(self):
+        cmc = ContactMomentFactory.create(
+            registratiedatum=make_aware(datetime(2019, 1, 1)),
+            initiatiefnemer=InitiatiefNemer.gemeente,
+        )
+        cmc_url = reverse(cmc)
+
+        KlantContactMomentFactory.create(
+            klant="http://testserver.com/klant/1",
+            contactmoment=cmc,
+            rol=Rol.gesprekspartner,
+        )
+
+        list_url = reverse(KlantContactMoment)
+        data = {
+            "klant": "http://testserver.com/klant/1",
+            "contactmoment": f"http://testserver{cmc_url}",
+            "rol": Rol.gesprekspartner,
+        }
+
+        with requests_mock.Mocker() as m:
+            m.get("http://testserver.com/klant/1", json={})
+            response = self.client.post(list_url, data)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        error = get_validation_errors(response, "nonFieldErrors")
+        self.assertEqual(error["code"], "unique")
+
     def test_destroy_klantcontactmoment(self):
         klantcontactmoment = KlantContactMomentFactory.create()
         detail_url = reverse(klantcontactmoment)
