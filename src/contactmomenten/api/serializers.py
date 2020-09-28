@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from rest_framework import serializers
 from vng_api_common.serializers import add_choice_values_help_text
-from vng_api_common.validators import IsImmutableValidator
+from vng_api_common.validators import IsImmutableValidator, URLValidator
 
 from contactmomenten.datamodel.constants import ObjectTypes
 from contactmomenten.datamodel.models import (
@@ -154,4 +154,5 @@ class KlantContactMomentSerializer(serializers.HyperlinkedModelSerializer):
         extra_kwargs = {
             "url": {"lookup_field": "uuid"},
             "contactmoment": {"lookup_field": "uuid"},
+            "klant": {"validators": [URLValidator()]},
         }
