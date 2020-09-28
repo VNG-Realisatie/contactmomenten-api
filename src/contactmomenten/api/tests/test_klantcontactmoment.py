@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.utils.timezone import make_aware
 
+import requests_mock
 from rest_framework import status
 from rest_framework.test import APITestCase
 from vng_api_common.tests import JWTAuthMixin, get_validation_errors, reverse
@@ -70,7 +71,9 @@ class KlantContactMomentTests(JWTAuthMixin, APITestCase):
             "rol": Rol.gesprekspartner,
         }
 
-        response = self.client.post(list_url, data)
+        with requests_mock.Mocker() as m:
+            m.get("http://testserver.com/klant/1", json={})
+            response = self.client.post(list_url, data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
