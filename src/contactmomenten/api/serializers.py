@@ -40,7 +40,6 @@ class ContactMomentSerializer(serializers.HyperlinkedModelSerializer):
             "vorig_contactmoment",
             "volgend_contactmoment",
             "bronorganisatie",
-            "klant",
             "registratiedatum",
             "kanaal",
             "voorkeurskanaal",

@@ -22,13 +22,6 @@ class ContactMoment(APIMixin, models.Model):
         "geldig RSIN zijn van 9 nummers en voldoen aan "
         "https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef"
     )
-    klant = models.URLField(
-        max_length=1000,
-        blank=True,
-        help_text=_(
-            "URL-referentie naar een KLANT (in Klanten API) indien de klantinteractie niet anoniem is."
-        ),
-    )
     registratiedatum = models.DateTimeField(
         default=timezone.now,
         help_text=_(
@@ -106,11 +99,11 @@ class ContactMoment(APIMixin, models.Model):
         super().save(*args, **kwargs)
 
     def unique_representation(self):
-        klant_path = self.klant
-        if klant_path.endswith("/"):
-            klant_path = klant_path.rstrip("/")
-        klant_id = klant_path.rsplit("/")[-1]
-        return f"{self.bronorganisatie} {klant_id} at {self.registratiedatum} via {self.kanaal}"
+        medewerker_path = self.medewerker
+        if medewerker_path.endswith("/"):
+            medewerker_path = medewerker_path.rstrip("/")
+        medewerker_id = medewerker_path.rsplit("/")[-1]
+        return f"{self.bronorganisatie} {medewerker_id} at {self.registratiedatum} via {self.kanaal}"
 
 
 class ObjectContactMoment(APIMixin, models.Model):

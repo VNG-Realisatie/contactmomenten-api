@@ -2841,13 +2841,6 @@ components:
           type: string
           maxLength: 9
           minLength: 1
-        klant:
-          title: Klant
-          description: URL-referentie naar een KLANT (in Klanten API) indien de klantinteractie
-            niet anoniem is.
-          type: string
-          format: uri
-          maxLength: 1000
         registratiedatum:
           title: Registratiedatum
           description: De datum en het tijdstip waarop het CONTACTMOMENT is geregistreerd.
