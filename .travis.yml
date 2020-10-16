@@ -64,7 +64,7 @@ jobs:
       script: echo "deploying..."
       deploy:
         - provider: script
-          script: bash bin/cicd.sh latest no
+          script: bash bin/cicd.sh latest yes
           on:
             branch: master
 
