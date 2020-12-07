@@ -15,7 +15,7 @@ Inleiding
 =========
 
 Deze referentieimplementatie toont aan dat de API specificatie voor
-Contactmomenten implementeerbaar is, en vormt een voorbeeld voor andere 
+Contactmomenten implementeerbaar is, en vormt een voorbeeld voor andere
 implementaties indien ergens twijfel bestaat.
 
 Deze component heeft ook een `testomgeving`_ waar leveranciers tegenaan kunnen
@@ -46,9 +46,9 @@ Licensed under the EUPL_
 
 .. _EUPL: LICENCE.md
 
-.. |build-status| image:: https://travis-ci.org/VNG-Realisatie/contactmomenten-api.svg?branch=master
+.. |build-status| image:: https://travis-ci.com/VNG-Realisatie/contactmomenten-api.svg?branch=master
     :alt: Build status
-    :target: https://travis-ci.org/VNG-Realisatie/contactmomenten-api
+    :target: https://travis-ci.com/VNG-Realisatie/contactmomenten-api
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
