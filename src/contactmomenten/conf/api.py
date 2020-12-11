@@ -1,3 +1,5 @@
+import os
+
 from vng_api_common.conf.api import *  # noqa - imports white-listed
 
 API_VERSION = "1.0.0-beta"
@@ -39,3 +41,7 @@ GEMMA_URL_INFORMATIEMODEL_VERSIE = "1.0"
 zrc_repo = "vng-realisatie/gemma-zaakregistratiecomponent"
 zrc_commit = "8ea1950fe4ec2ad99504d345eba60a175eea3edf"
 ZRC_API_SPEC = f"https://raw.githubusercontent.com/{zrc_repo}/{zrc_commit}/src/openapi.yaml"  # noqa
+
+SELF_REPO = "VNG-Realisatie/contactmomenten-api"
+SELF_BRANCH = os.getenv("SELF_BRANCH") or API_VERSION
+GITHUB_API_SPEC = f"https://raw.githubusercontent.com/{SELF_REPO}/{SELF_BRANCH}/src/openapi.yaml"  # noqa
