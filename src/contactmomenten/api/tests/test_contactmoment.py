@@ -50,7 +50,6 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
                 "vorigContactmoment": None,
                 "volgendContactmoment": None,
                 "bronorganisatie": contactmoment.bronorganisatie,
-                "klant": contactmoment.klant,
                 "registratiedatum": "2019-01-01T00:00:00Z",
                 "kanaal": contactmoment.kanaal,
                 "voorkeurskanaal": contactmoment.voorkeurskanaal,
@@ -86,7 +85,6 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
                 "vorigContactmoment": None,
                 "volgendContactmoment": None,
                 "bronorganisatie": contactmoment.bronorganisatie,
-                "klant": contactmoment.klant,
                 "registratiedatum": "2019-01-01T00:00:00Z",
                 "kanaal": contactmoment.kanaal,
                 "voorkeurskanaal": contactmoment.voorkeurskanaal,
@@ -108,7 +106,6 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
         list_url = reverse(ContactMoment)
         data = {
             "bronorganisatie": "423182687",
-            "klant": KLANT,
             "kanaal": "telephone",
             "tekst": "some text",
             "onderwerpLinks": [],
@@ -122,7 +119,6 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
 
         contactmoment = ContactMoment.objects.get()
 
-        self.assertEqual(contactmoment.klant, KLANT)
         self.assertEqual(contactmoment.kanaal, "telephone")
         self.assertEqual(contactmoment.tekst, "some text")
         self.assertEqual(contactmoment.initiatiefnemer, InitiatiefNemer.gemeente)
@@ -132,7 +128,6 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
         list_url = reverse(ContactMoment)
         data = {
             "bronorganisatie": "423182687",
-            "klant": KLANT,
             "kanaal": "telephone",
             "tekst": "some text",
             "onderwerpLinks": [],
@@ -150,7 +145,6 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
 
         contactmoment = ContactMoment.objects.get()
 
-        self.assertEqual(contactmoment.klant, KLANT)
         self.assertEqual(contactmoment.kanaal, "telephone")
         self.assertEqual(contactmoment.tekst, "some text")
         self.assertEqual(contactmoment.initiatiefnemer, InitiatiefNemer.gemeente)
@@ -220,13 +214,13 @@ class ContactMomentTests(JWTAuthMixin, APITestCase):
         contactmoment = ContactMomentFactory.create()
         detail_url = reverse(contactmoment)
 
-        response = self.client.patch(detail_url, {"klant": KLANT})
+        response = self.client.patch(detail_url, {"kanaal": "some-kanaal"})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         contactmoment.refresh_from_db()
 
-        self.assertEqual(contactmoment.klant, KLANT)
+        self.assertEqual(contactmoment.kanaal, "some-kanaal")
 
     def test_update_contactmoment_with_medewerker(self):
         contactmoment = ContactMomentFactory.create()
