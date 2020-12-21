@@ -3,6 +3,7 @@ import logging
 from django.utils.translation import ugettext_lazy as _
 
 from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
 from vng_api_common.serializers import add_choice_values_help_text
 from vng_api_common.validators import IsImmutableValidator, URLValidator
 
@@ -156,3 +157,9 @@ class KlantContactMomentSerializer(serializers.HyperlinkedModelSerializer):
             "contactmoment": {"lookup_field": "uuid"},
             "klant": {"validators": [URLValidator()]},
         }
+        validators = [
+            UniqueTogetherValidator(
+                queryset=KlantContactMoment.objects.all(),
+                fields=["contactmoment", "klant", "rol"],
+            ),
+        ]
