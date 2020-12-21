@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.utils.timezone import make_aware
 
+import requests_mock
 from rest_framework import status
 from rest_framework.test import APITestCase
 from vng_api_common.tests import JWTAuthMixin, get_validation_errors, reverse
@@ -70,7 +71,9 @@ class KlantContactMomentTests(JWTAuthMixin, APITestCase):
             "rol": Rol.gesprekspartner,
         }
 
-        response = self.client.post(list_url, data)
+        with requests_mock.Mocker() as m:
+            m.get("http://testserver.com/klant/1", json={})
+            response = self.client.post(list_url, data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -79,6 +82,31 @@ class KlantContactMomentTests(JWTAuthMixin, APITestCase):
         self.assertEqual(klantcontactmoment.klant, "http://testserver.com/klant/1")
         self.assertEqual(klantcontactmoment.contactmoment, cmc)
         self.assertEqual(klantcontactmoment.rol, Rol.gesprekspartner)
+
+    def test_create_klantcontactmoment_klant_url_invalid(self):
+        cmc = ContactMomentFactory.create(
+            registratiedatum=make_aware(datetime(2019, 1, 1)),
+            initiatiefnemer=InitiatiefNemer.gemeente,
+        )
+        cmc_url = reverse(cmc)
+
+        list_url = reverse(KlantContactMoment)
+        data = {
+            "klant": "http://testserver.com/klant/1",
+            "contactmoment": f"http://testserver{cmc_url}",
+            "rol": Rol.gesprekspartner,
+        }
+
+        with requests_mock.Mocker() as m:
+            m.get("http://testserver.com/klant/1", status_code=404)
+            response = self.client.post(list_url, data)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        self.assertEqual(KlantContactMoment.objects.count(), 0)
+
+        error = get_validation_errors(response, "klant")
+        self.assertEqual(error["code"], "bad-url")
 
     def test_destroy_klantcontactmoment(self):
         klantcontactmoment = KlantContactMomentFactory.create()
