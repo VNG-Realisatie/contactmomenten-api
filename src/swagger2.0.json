@@ -2248,7 +2248,7 @@
         },
         {
             "name": "klantcontactmomenten",
-            "description": "Het betreft een relatie tussen een willekeurig OBJECT, bijvoorbeeld een\nZAAK in de Zaken API, en een CONTACTMOMENT."
+            "description": "Het betreft een relatie tussen een KLANT (uit de Klanten API) en een CONTACTMOMENT."
         },
         {
             "name": "objectcontactmomenten",
