@@ -196,8 +196,7 @@ class KlantContactMomentViewSet(
     """
     Opvragen en verwijderen van OBJECT-CONTACTMOMENT relaties.
 
-    Het betreft een relatie tussen een willekeurig OBJECT, bijvoorbeeld een
-    ZAAK in de Zaken API, en een CONTACTMOMENT.
+    Het betreft een relatie tussen een KLANT (uit de Klanten API) en een CONTACTMOMENT.
 
     create:
     Maak een KLANT-CONTACTMOMENT relatie aan.
